@@ -1,0 +1,20 @@
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Build outputs
+target/
+dist/
+node_modules/
+
+# Logs
+*.log
+logs/
+*.txt
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+*.suo
