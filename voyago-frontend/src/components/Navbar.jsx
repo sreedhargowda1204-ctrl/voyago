@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Compass, LogOut, LayoutDashboard } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import NotificationBell from './NotificationBell';
 
 const Navbar = () => {
   const { user, isAuthenticated, logout } = useAuth();
@@ -43,6 +44,8 @@ const Navbar = () => {
                   <LayoutDashboard className="h-4 w-4 text-blue-600" />
                   <span className="hidden sm:inline">Dashboard</span>
                 </Link>
+
+                <NotificationBell />
 
                 <div className="hidden sm:flex items-center space-x-2 pl-2 border-l border-slate-200">
                   <div className="h-8 w-8 rounded-full bg-blue-50 text-blue-600 font-semibold text-xs flex items-center justify-center border border-blue-200">

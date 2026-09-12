@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Button from '../components/Button';
@@ -45,6 +45,7 @@ import {
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
+  const location = useLocation();
 
   // Trips list state
   const [trips, setTrips] = useState([]);
@@ -59,6 +60,17 @@ const Dashboard = () => {
 
   // Active Itinerary View state
   const [activeItineraryTrip, setActiveItineraryTrip] = useState(null);
+
+  // Auto-select trip if navigated from notification
+  useEffect(() => {
+    const requestedTripId = location.state?.selectedTripId;
+    if (requestedTripId && trips.length > 0) {
+      const match = trips.find((t) => String(t.id) === String(requestedTripId));
+      if (match) {
+        setActiveItineraryTrip(match);
+      }
+    }
+  }, [location.state, trips]);
 
   // Trip Modal (Create / Edit) state
   const [isTripModalOpen, setIsTripModalOpen] = useState(false);
