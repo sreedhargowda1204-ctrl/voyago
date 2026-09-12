@@ -26,15 +26,18 @@ public class PlacesService {
     private final DestinationResolver destinationResolver;
     private final String geocodingUrl;
     private final String wikipediaApiUrl;
+    private final String wikimediaApiUrl;
 
     public PlacesService(
             DestinationResolver destinationResolver,
             @Value("${weather.open-meteo.geocoding-url:https://geocoding-api.open-meteo.com/v1/search}") String geocodingUrl,
-            @Value("${places.wikipedia.api-url:https://en.wikipedia.org/w/api.php}") String wikipediaApiUrl
+            @Value("${places.wikipedia.api-url:https://en.wikipedia.org/w/api.php}") String wikipediaApiUrl,
+            @Value("${places.wikimedia.api-url:https://commons.wikimedia.org/w/api.php}") String wikimediaApiUrl
     ) {
         this.destinationResolver = destinationResolver;
         this.geocodingUrl = geocodingUrl;
         this.wikipediaApiUrl = wikipediaApiUrl;
+        this.wikimediaApiUrl = wikimediaApiUrl;
 
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
         requestFactory.setConnectTimeout(Duration.ofSeconds(5));
@@ -233,14 +236,19 @@ public class PlacesService {
                     continue;
                 }
 
+                Double placeLat = geoItem.getLat() != null ? geoItem.getLat() : latitude;
+                Double placeLon = geoItem.getLon() != null ? geoItem.getLon() : longitude;
+
                 String imageUrl = (pageItem != null && pageItem.getThumbnail() != null)
                         ? pageItem.getThumbnail().getSource()
                         : null;
 
-                String websiteUrl = (pageItem != null) ? pageItem.getFullurl() : null;
+                // Priority 2: Safe Wikimedia Commons fallback if Wikipedia thumbnail is missing
+                if (imageUrl == null || imageUrl.isBlank()) {
+                    imageUrl = fetchCommonsFallbackImage(name, destinationName, district, placeLat, placeLon);
+                }
 
-                Double placeLat = geoItem.getLat() != null ? geoItem.getLat() : latitude;
-                Double placeLon = geoItem.getLon() != null ? geoItem.getLon() : longitude;
+                String websiteUrl = (pageItem != null) ? pageItem.getFullurl() : null;
 
                 double distanceKm = calculateDistanceKm(latitude, longitude, placeLat, placeLon);
                 String category = categorizePlace(name, description);
@@ -290,14 +298,14 @@ public class PlacesService {
         String lowerTitle = title != null ? title.toLowerCase() : "";
         String lowerTarget = targetDistrict.toLowerCase().replace(" district", "").trim();
 
-        // List of Karnataka districts for boundary conflict detection
+        // List of Karnataka districts and major urban centers for boundary conflict detection
         List<String> karnatakaDistricts = List.of(
                 "bagalkot", "bagalkote", "ballari", "bellary", "belagavi", "belgaum", "bengaluru urban",
-                "bengaluru rural", "bidar", "chamarajanagar", "chikkaballapur", "chikkamagaluru", "chikmagalur",
-                "chitradurga", "dakshina kannada", "davanagere", "dharwad", "gadag", "hassan", "haveri",
-                "kalaburagi", "gulbarga", "kodagu", "coorg", "kolar", "koppal", "mandya", "mysuru", "mysore",
-                "raichur", "ramanagara", "shivamogga", "shimoga", "tumakuru", "tumkur", "udupi", "uttara kannada",
-                "vijayanagara", "vijayapura", "bijapur", "yadgir"
+                "bengaluru rural", "bengaluru", "bangalore", "bidar", "chamarajanagar", "chikkaballapur",
+                "chikkamagaluru", "chikmagalur", "chitradurga", "dakshina kannada", "davanagere", "dharwad",
+                "gadag", "hassan", "haveri", "kalaburagi", "gulbarga", "kodagu", "coorg", "kolar", "koppal",
+                "mandya", "mysuru", "mysore", "raichur", "ramanagara", "shivamogga", "shimoga", "tumakuru",
+                "tumkur", "udupi", "uttara kannada", "vijayanagara", "vijayapura", "bijapur", "yadgir"
         );
 
         for (String dist : karnatakaDistricts) {
@@ -305,10 +313,12 @@ public class PlacesService {
             // Ignore sub-match overlaps (e.g. bengaluru vs bengaluru urban/rural)
             if (lowerTarget.contains(dist) || dist.contains(lowerTarget)) continue;
 
-            // Pattern checking: "in <dist> district", "<dist> taluk", "of <dist> district"
+            // Pattern checking: "in <dist> district", "in <dist>", "<dist> taluk", "of <dist> district", ", <dist>"
             if (lowerDesc.contains("in " + dist + " district")
                     || lowerDesc.contains("of " + dist + " district")
+                    || lowerDesc.contains("in " + dist)
                     || lowerDesc.contains(dist + " taluk")
+                    || lowerDesc.contains(", " + dist)
                     || lowerTitle.contains("(" + dist + ")")
                     || lowerTitle.contains("(" + dist + " district)")) {
                 return true;
@@ -428,6 +438,237 @@ public class PlacesService {
         return false;
     }
 
+    private String fetchCommonsFallbackImage(
+            String placeName,
+            String destinationName,
+            String district,
+            Double placeLat,
+            Double placeLon
+    ) {
+        if (placeName == null || placeName.isBlank()) {
+            return null;
+        }
+
+        // Primary: targeted search by place name
+        String imageUrl = queryCommonsForImage(placeName, placeName, destinationName, district, placeLat, placeLon);
+        if (imageUrl != null) {
+            return imageUrl;
+        }
+
+        // Secondary: combine place name with destination name if distinct
+        if (destinationName != null && !destinationName.isBlank()
+                && !placeName.toLowerCase().contains(destinationName.toLowerCase())) {
+            imageUrl = queryCommonsForImage(placeName + " " + destinationName, placeName, destinationName, district, placeLat, placeLon);
+            if (imageUrl != null) {
+                return imageUrl;
+            }
+        }
+
+        return null;
+    }
+
+    private String queryCommonsForImage(
+            String searchQuery,
+            String placeName,
+            String destinationName,
+            String district,
+            Double placeLat,
+            Double placeLon
+    ) {
+        try {
+            URI uri = UriComponentsBuilder.fromUriString(wikimediaApiUrl)
+                    .queryParam("action", "query")
+                    .queryParam("generator", "search")
+                    .queryParam("gsrsearch", searchQuery)
+                    .queryParam("gsrnamespace", 6)
+                    .queryParam("prop", "imageinfo")
+                    .queryParam("iiprop", "url|size|extmetadata")
+                    .queryParam("iiurlwidth", 600)
+                    .queryParam("gsrlimit", 5)
+                    .queryParam("format", "json")
+                    .build()
+                    .encode()
+                    .toUri();
+
+            WikimediaCommonsResponse response = restClient.get()
+                    .uri(uri)
+                    .retrieve()
+                    .body(WikimediaCommonsResponse.class);
+
+            if (response == null || response.getQuery() == null || response.getQuery().getPages() == null) {
+                return null;
+            }
+
+            for (WikimediaCommonsResponse.PageItem page : response.getQuery().getPages().values()) {
+                if (isValidCommonsCandidate(page, placeName, destinationName, district, placeLat, placeLon)) {
+                    WikimediaCommonsResponse.ImageInfo info = page.getImageinfo().get(0);
+                    String url = (info.getThumburl() != null && !info.getThumburl().isBlank())
+                            ? info.getThumburl()
+                            : info.getUrl();
+
+                    if (url != null && url.startsWith("https://")) {
+                        log.debug("Found Wikimedia Commons fallback image for '{}': {}", placeName, url);
+                        return url;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log.warn("Failed to fetch Wikimedia Commons fallback for '{}': {}", placeName, e.getMessage());
+        }
+        return null;
+    }
+
+    private boolean isValidCommonsCandidate(
+            WikimediaCommonsResponse.PageItem page,
+            String placeName,
+            String destinationName,
+            String district,
+            Double placeLat,
+            Double placeLon
+    ) {
+        if (page == null || page.getTitle() == null || page.getImageinfo() == null || page.getImageinfo().isEmpty()) {
+            return false;
+        }
+
+        String title = page.getTitle();
+        String titleLower = title.toLowerCase();
+
+        // 1. Must be a supported image extension
+        boolean isImageExtension = titleLower.endsWith(".jpg")
+                || titleLower.endsWith(".jpeg")
+                || titleLower.endsWith(".png")
+                || titleLower.endsWith(".webp");
+
+        if (!isImageExtension) {
+            return false;
+        }
+
+        // 2. Reject non-photo graphics, maps, symbols, flags, diagrams, logos
+        if (containsAny(titleLower,
+                "flag of", "flag_", "logo", "coat of arms", "symbol", "map of", "location map",
+                "locator_map", "locator map", "diagram", "icon", "chart", "sign", "seal of",
+                "commons-logo", "emblem", "blank_map", "route_map", "constituency", "election")) {
+            return false;
+        }
+
+        WikimediaCommonsResponse.ImageInfo info = page.getImageinfo().get(0);
+        String desc = extractExtMetadata(info, "ImageDescription");
+        String categories = extractExtMetadata(info, "Categories");
+        String objectName = extractExtMetadata(info, "ObjectName");
+
+        // 3. GPS Distance Validation (strictly reject candidate if metadata GPS is > 30 km from place)
+        String gpsLatStr = extractExtMetadata(info, "GPSLatitude");
+        String gpsLonStr = extractExtMetadata(info, "GPSLongitude");
+        if (gpsLatStr != null && !gpsLatStr.isBlank() && gpsLonStr != null && !gpsLonStr.isBlank()
+                && placeLat != null && placeLon != null) {
+            try {
+                double imgLat = Double.parseDouble(gpsLatStr.trim());
+                double imgLon = Double.parseDouble(gpsLonStr.trim());
+                double distKm = calculateDistanceKm(placeLat, placeLon, imgLat, imgLon);
+                if (distKm > 30.0) {
+                    log.debug("Rejecting Commons candidate '{}' for '{}': GPS distance {} km exceeds 30 km threshold",
+                            title, placeName, distKm);
+                    return false;
+                }
+            } catch (NumberFormatException ignored) {
+                // If coordinates cannot be parsed, proceed with textual validation
+            }
+        }
+
+        String fullMetadataText = (title + " "
+                + (desc != null ? desc : "") + " "
+                + (categories != null ? categories : "") + " "
+                + (objectName != null ? objectName : "")).toLowerCase();
+
+        // 4. Reject district / locality contradiction in Commons metadata
+        if (hasDistrictContradiction(district, fullMetadataText, title)) {
+            return false;
+        }
+
+        // 5. Reject other state contradictions if looking in Karnataka / Indian destinations
+        if (district != null && !district.isBlank()) {
+            List<String> otherStates = List.of(
+                    "andhra pradesh", "tamil nadu", "kerala", "maharashtra", "telangana",
+                    "gujarat", "rajasthan", "uttar pradesh", "west bengal", "bihar",
+                    "odisha", "madhya pradesh", "punjab", "haryana", "visakhapatnam", "hyderabad", "chennai", "mumbai"
+            );
+            for (String state : otherStates) {
+                if (fullMetadataText.contains(state)) {
+                    return false;
+                }
+            }
+        }
+
+        // 6. Semantic Relevance Check:
+        // Extract significant tokens from placeName (length >= 4, ignoring generic stop words)
+        List<String> keyTokens = extractKeyPlaceTokens(placeName);
+        if (keyTokens.isEmpty()) {
+            return fullMetadataText.contains(placeName.toLowerCase().trim());
+        }
+
+        for (String token : keyTokens) {
+            if (fullMetadataText.contains(token)) {
+                // Reject mere street name collisions (e.g., "Arehalli Main Road" in another city)
+                if (isMereStreetNameCollision(fullMetadataText, token, destinationName, district)) {
+                    return false;
+                }
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isMereStreetNameCollision(String fullText, String token, String destinationName, String district) {
+        String destLower = destinationName != null ? destinationName.toLowerCase().trim() : "";
+        String distLower = district != null ? district.toLowerCase().replace(" district", "").trim() : "";
+
+        // If the metadata explicitly mentions destination or district context, it's valid
+        if (!destLower.isEmpty() && fullText.contains(destLower)) {
+            return false;
+        }
+        if (!distLower.isEmpty() && fullText.contains(distLower)) {
+            return false;
+        }
+
+        // Check if token only appears as a street/road name modifier
+        return fullText.contains(token + " main road")
+                || fullText.contains(token + " road")
+                || fullText.contains(token + " street")
+                || fullText.contains(token + " cross")
+                || fullText.contains(token + " layout")
+                || fullText.contains(token + " circle");
+    }
+
+    private List<String> extractKeyPlaceTokens(String placeName) {
+        if (placeName == null) return Collections.emptyList();
+        String cleaned = placeName.toLowerCase().replaceAll("[^a-z0-9\\s]", " ");
+        String[] parts = cleaned.split("\\s+");
+        Set<String> stopWords = Set.of(
+                "railway", "station", "temple", "church", "falls", "fort", "hill", "hills",
+                "viewpoint", "park", "garden", "lake", "river", "cross", "road", "street",
+                "main", "statue", "house", "hotel", "village", "town", "city", "taluk", "district", "karnataka",
+                "india", "indian", "school", "college", "high", "anglo", "hall", "club",
+                "academy", "institute", "institution", "memorial", "center", "centre",
+                "layout", "circle", "near", "north", "south", "east", "west", "gate", "bridge", "tea"
+        );
+
+        List<String> tokens = new ArrayList<>();
+        for (String part : parts) {
+            if (part.length() >= 4 && !stopWords.contains(part)) {
+                tokens.add(part);
+            }
+        }
+        return tokens;
+    }
+
+    private String extractExtMetadata(WikimediaCommonsResponse.ImageInfo info, String key) {
+        if (info == null || info.getExtmetadata() == null) {
+            return null;
+        }
+        WikimediaCommonsResponse.ExtMetaItem item = info.getExtmetadata().get(key);
+        return item != null ? item.getValue() : null;
+    }
 
     @lombok.Value
     private static class ScoredPlace {

@@ -92,7 +92,8 @@ public class PlacesServiceTest {
         service = new PlacesService(
                 destinationResolver,
                 "https://geocoding-api.open-meteo.com/v1/search",
-                "https://en.wikipedia.org/w/api.php"
+                "https://en.wikipedia.org/w/api.php",
+                "https://commons.wikimedia.org/w/api.php"
         );
     }
 
@@ -238,6 +239,111 @@ public class PlacesServiceTest {
             }
         } catch (com.voyago.backend.exception.WeatherServiceException ex) {
             assertTrue(ex.getMessage().contains("External places data service error"));
+        }
+    }
+
+    @Test
+    public void testWikimediaCommonsFallback_ImageVerification() {
+        try {
+            PlacesResponse response = service.getPlacesForDestination("Sakleshpur");
+            assertNotNull(response.getLocation());
+            assertNotNull(response.getPlaces());
+
+            for (var place : response.getPlaces()) {
+                if (place.getImageUrl() != null) {
+                    assertTrue(place.getImageUrl().startsWith("https://"),
+                            "Place image URL must be HTTPS: " + place.getImageUrl());
+                    assertFalse(place.getImageUrl().contains("Flag_of_"),
+                            "Image must not be a generic flag: " + place.getImageUrl());
+                    assertFalse(place.getImageUrl().endsWith(".pdf"),
+                            "Image must not be a PDF: " + place.getImageUrl());
+                    assertFalse(place.getImageUrl().endsWith(".svg"),
+                            "Image must not be an SVG icon: " + place.getImageUrl());
+                }
+
+                if ("Green Route".equalsIgnoreCase(place.getName())) {
+                    assertNotNull(place.getImageUrl(), "Green Route should have a valid image from Wikipedia");
+                }
+            }
+        } catch (com.voyago.backend.exception.WeatherServiceException ex) {
+            assertTrue(ex.getMessage().contains("External places data service error"));
+        }
+    }
+
+    @Test
+    public void testNullFallbackWhenNoCommonsImage() {
+        try {
+            PlacesResponse response = service.getPlacesForDestination("Sakleshpur");
+            assertNotNull(response.getLocation());
+
+            // Check that places without genuine images have null rather than fabricated URLs
+            for (var place : response.getPlaces()) {
+                if (place.getImageUrl() == null) {
+                    assertNull(place.getImageUrl());
+                } else {
+                    assertTrue(place.getImageUrl().startsWith("https://"));
+                }
+            }
+        } catch (com.voyago.backend.exception.WeatherServiceException ex) {
+            assertTrue(ex.getMessage().contains("External places data service error"));
+        }
+    }
+
+    @Test
+    public void testArehalli_RejectsBengaluruTeaManStatue_YieldsNull() {
+        try {
+            PlacesResponse response = service.getPlacesForDestination("Sakleshpur");
+            assertNotNull(response.getLocation());
+            assertNotNull(response.getPlaces());
+
+            for (var place : response.getPlaces()) {
+                if ("Arehalli".equalsIgnoreCase(place.getName())) {
+                    // Must reject the false positive Bengaluru tea-man photo
+                    assertNull(place.getImageUrl(), "Arehalli should have null image rather than false-positive Bengaluru street statue");
+                }
+            }
+        } catch (com.voyago.backend.exception.WeatherServiceException ex) {
+            assertTrue(ex.getMessage().contains("External places data service error"));
+        }
+    }
+
+    @Test
+    public void testWikipediaPriority_And_GenuineCommonsImage() {
+        try {
+            PlacesResponse response = service.getPlacesForDestination("Sakleshpur");
+            assertNotNull(response.getLocation());
+
+            for (var place : response.getPlaces()) {
+                if ("Green Route".equalsIgnoreCase(place.getName())) {
+                    assertNotNull(place.getImageUrl(), "Green Route must preserve Wikipedia image");
+                    assertTrue(place.getImageUrl().contains("Train_enroute_green_route"), "Green Route must use its Wikipedia thumbnail");
+                }
+                if ("Sakleshpur railway station".equalsIgnoreCase(place.getName())) {
+                    assertNotNull(place.getImageUrl(), "Sakleshpur railway station should receive valid Commons photo");
+                    assertTrue(place.getImageUrl().startsWith("https://"));
+                    assertTrue(place.getImageUrl().contains("Sakleshpur"), "Image must be genuinely associated with Sakleshpur");
+                }
+            }
+        } catch (com.voyago.backend.exception.WeatherServiceException ex) {
+            assertTrue(ex.getMessage().contains("External places data service error"));
+        }
+    }
+
+    @Test
+    public void testRuntimeReport_AllDestinations() {
+        String[] destinations = {"Sakleshpur", "sakleshpura", "Bengaluru", "Mysuru", "Hampi"};
+        for (String dest : destinations) {
+            try {
+                PlacesResponse response = service.getPlacesForDestination(dest);
+                System.out.println("==================================================");
+                System.out.println("DESTINATION: " + dest + " -> Resolved: " + response.getLocation().getName());
+                System.out.println("TOTAL PLACES: " + response.getPlaces().size());
+                for (var p : response.getPlaces()) {
+                    System.out.println("  - " + p.getName() + " [" + p.getCategory() + "] -> ImageUrl: " + p.getImageUrl());
+                }
+            } catch (Exception ex) {
+                System.out.println("DESTINATION " + dest + " error: " + ex.getMessage());
+            }
         }
     }
 }

@@ -67,7 +67,8 @@ public class MapsServiceTest {
         PlacesService placesService = new PlacesService(
                 destinationResolver,
                 "https://geocoding-api.open-meteo.com/v1/search",
-                "https://en.wikipedia.org/w/api.php"
+                "https://en.wikipedia.org/w/api.php",
+                "https://commons.wikimedia.org/w/api.php"
         );
         mapsService = new MapsService(
                 placesService,
