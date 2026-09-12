@@ -1,5 +1,6 @@
 package com.voyago.backend.service;
 
+import com.voyago.backend.dto.destination.ResolvedDestination;
 import com.voyago.backend.dto.maps.*;
 import com.voyago.backend.dto.places.PlacesResponse;
 import com.voyago.backend.dto.weather.LocationDto;
@@ -25,15 +26,18 @@ public class MapsService {
 
     private final RestClient restClient;
     private final PlacesService placesService;
+    private final DestinationResolver destinationResolver;
     private final String geocodingUrl;
     private final String routingBaseUrl;
 
     public MapsService(
             PlacesService placesService,
+            DestinationResolver destinationResolver,
             @Value("${maps.geocoding.base-url:https://geocoding-api.open-meteo.com/v1/search}") String geocodingUrl,
             @Value("${maps.routing.base-url:https://router.project-osrm.org/route/v1/driving}") String routingBaseUrl
     ) {
         this.placesService = placesService;
+        this.destinationResolver = destinationResolver;
         this.geocodingUrl = geocodingUrl;
         this.routingBaseUrl = routingBaseUrl;
 
@@ -56,7 +60,17 @@ public class MapsService {
         }
 
         String query = destination.trim();
-        LocationDto location = geocodeDestination(query);
+
+        // 1. Resolve via Karnataka Destination Catalog first
+        ResolvedDestination resolved = destinationResolver.resolve(query);
+        LocationDto location;
+
+        if (resolved.isCatalogMatch()) {
+            location = resolved.toLocationDto();
+        } else {
+            // Fallback to external Open-Meteo geocoding
+            location = geocodeDestination(query);
+        }
 
         return MapResponse.builder()
                 .location(location)

@@ -1,5 +1,6 @@
 package com.voyago.backend.service;
 
+import com.voyago.backend.dto.destination.ResolvedDestination;
 import com.voyago.backend.dto.places.*;
 import com.voyago.backend.dto.weather.LocationDto;
 import com.voyago.backend.dto.weather.OpenMeteoGeocodingResponse;
@@ -22,13 +23,16 @@ import java.util.*;
 public class PlacesService {
 
     private final RestClient restClient;
+    private final DestinationResolver destinationResolver;
     private final String geocodingUrl;
     private final String wikipediaApiUrl;
 
     public PlacesService(
+            DestinationResolver destinationResolver,
             @Value("${weather.open-meteo.geocoding-url:https://geocoding-api.open-meteo.com/v1/search}") String geocodingUrl,
             @Value("${places.wikipedia.api-url:https://en.wikipedia.org/w/api.php}") String wikipediaApiUrl
     ) {
+        this.destinationResolver = destinationResolver;
         this.geocodingUrl = geocodingUrl;
         this.wikipediaApiUrl = wikipediaApiUrl;
 
@@ -49,11 +53,30 @@ public class PlacesService {
 
         String query = destination.trim();
 
-        // 1. Geocode destination
-        LocationDto location = geocodeDestination(query);
+        // 1. Resolve via Karnataka Destination Catalog first
+        ResolvedDestination resolved = destinationResolver.resolve(query);
+        LocationDto location;
+        String district = null;
+        String canonicalName = null;
 
-        // 2. Fetch notable places & tourist attractions near coordinates (max 15)
-        List<PlaceDto> places = fetchPlacesNear(location.getLatitude(), location.getLongitude(), location.getName());
+        if (resolved.isCatalogMatch()) {
+            location = resolved.toLocationDto();
+            district = resolved.getDistrict();
+            canonicalName = resolved.getCanonicalName();
+        } else {
+            // Fallback to external Open-Meteo geocoding
+            location = geocodeDestination(query);
+            canonicalName = location.getName();
+        }
+
+        // 2. Fetch notable places & tourist attractions near coordinates (max 15) with relevance ranking
+        List<PlaceDto> places = fetchPlacesNear(
+                location.getLatitude(),
+                location.getLongitude(),
+                canonicalName,
+                district,
+                query
+        );
 
         return PlacesResponse.builder()
                 .location(location)
@@ -98,7 +121,13 @@ public class PlacesService {
         }
     }
 
-    private List<PlaceDto> fetchPlacesNear(Double latitude, Double longitude, String destinationName) {
+    private List<PlaceDto> fetchPlacesNear(
+            Double latitude,
+            Double longitude,
+            String destinationName,
+            String district,
+            String rawQuery
+    ) {
         try {
             // Step 1: Geosearch nearby points of interest (gsradius must be <= 10000 for MediaWiki API)
             URI geoSearchUri = UriComponentsBuilder.fromUriString(wikipediaApiUrl)
@@ -106,7 +135,7 @@ public class PlacesService {
                     .queryParam("list", "geosearch")
                     .queryParam("gscoord", latitude + "|" + longitude)
                     .queryParam("gsradius", 10000)
-                    .queryParam("gslimit", 30)
+                    .queryParam("gslimit", 35)
                     .queryParam("format", "json")
                     .build()
                     .toUri();
@@ -123,7 +152,7 @@ public class PlacesService {
             List<WikipediaGeoSearchResponse.GeoSearchItem> items = geoResponse.getQuery().getGeosearch();
             String destLower = destinationName != null ? destinationName.toLowerCase() : "";
 
-            // Filter out exact city name and generic administrative articles
+            // Filter out exact city name and generic administrative stubs
             List<WikipediaGeoSearchResponse.GeoSearchItem> candidates = items.stream()
                     .filter(item -> {
                         String t = item.getTitle() != null ? item.getTitle().toLowerCase() : "";
@@ -132,11 +161,18 @@ public class PlacesService {
                                 && !t.startsWith("geography of ")
                                 && !t.startsWith("transport in ")
                                 && !t.startsWith("economy of ")
+                                && !t.startsWith("demographics of ")
+                                && !t.startsWith("climate of ")
+                                && !t.startsWith("politics of ")
+                                && !t.startsWith("list of ")
                                 && !t.contains("arrondissement")
                                 && !t.contains("constituency")
-                                && !t.contains("legislative assembly");
+                                && !t.contains("legislative assembly")
+                                && !t.contains("lok sabha")
+                                && !t.contains("vidhan sabha")
+                                && !t.contains("gram panchayat");
                     })
-                    .limit(20)
+                    .limit(30)
                     .toList();
 
             if (candidates.isEmpty()) {
@@ -158,7 +194,7 @@ public class PlacesService {
                     .queryParam("prop", "extracts|pageimages|info")
                     .queryParam("exintro", 1)
                     .queryParam("explaintext", 1)
-                    .queryParam("exchars", 300)
+                    .queryParam("exchars", 350)
                     .queryParam("pithumbsize", 600)
                     .queryParam("inprop", "url")
                     .queryParam("pageids", pageIdsParam)
@@ -177,7 +213,7 @@ public class PlacesService {
                     ? detailsResponse.getQuery().getPages()
                     : Collections.emptyMap();
 
-            List<PlaceDto> places = new ArrayList<>();
+            List<ScoredPlace> scoredPlaces = new ArrayList<>();
 
             for (Map.Entry<String, WikipediaGeoSearchResponse.GeoSearchItem> entry : candidateMap.entrySet()) {
                 String pageId = entry.getKey();
@@ -185,12 +221,17 @@ public class PlacesService {
                 WikipediaPageDetailsResponse.PageItem pageItem = pagesMap.get(pageId);
 
                 String name = (pageItem != null && pageItem.getTitle() != null)
-                        ? pageItem.getTitle()
-                        : geoItem.getTitle();
+                        ? pageItem.getTitle().trim()
+                        : geoItem.getTitle().trim();
 
                 String description = (pageItem != null && pageItem.getExtract() != null && !pageItem.getExtract().trim().isEmpty())
                         ? pageItem.getExtract().trim()
                         : null;
+
+                // Contradiction filter: if destination is in a known district (e.g. Hassan), reject results claiming to be in a different district
+                if (hasDistrictContradiction(district, description, name)) {
+                    continue;
+                }
 
                 String imageUrl = (pageItem != null && pageItem.getThumbnail() != null)
                         ? pageItem.getThumbnail().getSource()
@@ -201,27 +242,36 @@ public class PlacesService {
                 Double placeLat = geoItem.getLat() != null ? geoItem.getLat() : latitude;
                 Double placeLon = geoItem.getLon() != null ? geoItem.getLon() : longitude;
 
+                double distanceKm = calculateDistanceKm(latitude, longitude, placeLat, placeLon);
                 String category = categorizePlace(name, description);
-                Double rating = calculateRating(imageUrl, description);
+                double score = computeRelevanceScore(name, description, category, distanceKm, destinationName, district, rawQuery, imageUrl != null);
 
-                places.add(PlaceDto.builder()
+                PlaceDto dto = PlaceDto.builder()
                         .name(name)
                         .category(category)
                         .description(description)
                         .latitude(placeLat)
                         .longitude(placeLon)
                         .address(name + ", " + destinationName)
-                        .rating(rating)
+                        .rating(null)
                         .imageUrl(imageUrl)
                         .websiteUrl(websiteUrl)
-                        .build());
+                        .build();
 
-                if (places.size() >= 15) {
-                    break;
-                }
+                scoredPlaces.add(new ScoredPlace(dto, score, distanceKm, name));
             }
 
-            return places;
+            // Step 3: Deterministic sorting: highest score first, closest distance second, alphabetical third
+            scoredPlaces.sort(Comparator
+                    .comparingDouble(ScoredPlace::getScore).reversed()
+                    .thenComparingDouble(ScoredPlace::getDistanceKm)
+                    .thenComparing(ScoredPlace::getName));
+
+            return scoredPlaces.stream()
+                    .limit(15)
+                    .map(ScoredPlace::getDto)
+                    .toList();
+
         } catch (RestClientException e) {
             log.error("External Places API error: {}", e.getMessage());
             throw new WeatherServiceException("External places data service error: " + e.getMessage(), e);
@@ -229,6 +279,123 @@ public class PlacesService {
             log.error("Unexpected error retrieving places for ({}, {}): {}", latitude, longitude, e.getMessage());
             throw new WeatherServiceException("Unexpected error retrieving attractions data", e);
         }
+    }
+
+    private boolean hasDistrictContradiction(String targetDistrict, String description, String title) {
+        if (targetDistrict == null || targetDistrict.isBlank() || description == null || description.isBlank()) {
+            return false;
+        }
+
+        String lowerDesc = description.toLowerCase();
+        String lowerTitle = title != null ? title.toLowerCase() : "";
+        String lowerTarget = targetDistrict.toLowerCase().replace(" district", "").trim();
+
+        // List of Karnataka districts for boundary conflict detection
+        List<String> karnatakaDistricts = List.of(
+                "bagalkot", "bagalkote", "ballari", "bellary", "belagavi", "belgaum", "bengaluru urban",
+                "bengaluru rural", "bidar", "chamarajanagar", "chikkaballapur", "chikkamagaluru", "chikmagalur",
+                "chitradurga", "dakshina kannada", "davanagere", "dharwad", "gadag", "hassan", "haveri",
+                "kalaburagi", "gulbarga", "kodagu", "coorg", "kolar", "koppal", "mandya", "mysuru", "mysore",
+                "raichur", "ramanagara", "shivamogga", "shimoga", "tumakuru", "tumkur", "udupi", "uttara kannada",
+                "vijayanagara", "vijayapura", "bijapur", "yadgir"
+        );
+
+        for (String dist : karnatakaDistricts) {
+            if (dist.equals(lowerTarget)) continue;
+            // Ignore sub-match overlaps (e.g. bengaluru vs bengaluru urban/rural)
+            if (lowerTarget.contains(dist) || dist.contains(lowerTarget)) continue;
+
+            // Pattern checking: "in <dist> district", "<dist> taluk", "of <dist> district"
+            if (lowerDesc.contains("in " + dist + " district")
+                    || lowerDesc.contains("of " + dist + " district")
+                    || lowerDesc.contains(dist + " taluk")
+                    || lowerTitle.contains("(" + dist + ")")
+                    || lowerTitle.contains("(" + dist + " district)")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private double computeRelevanceScore(
+            String name,
+            String description,
+            String category,
+            double distanceKm,
+            String destinationName,
+            String district,
+            String rawQuery,
+            boolean hasImage
+    ) {
+        double score = 50.0;
+
+        // Proximity bonus: closer attractions within 10km get up to +30 points
+        score += Math.max(0.0, 30.0 * (1.0 - (distanceKm / 10.0)));
+
+        String nameLower = name != null ? name.toLowerCase() : "";
+        String descLower = description != null ? description.toLowerCase() : "";
+        String destLower = destinationName != null ? destinationName.toLowerCase() : "";
+        String queryLower = rawQuery != null ? rawQuery.toLowerCase() : "";
+
+        // Destination name / query matches
+        if (nameLower.contains(destLower) || nameLower.contains(queryLower)) {
+            score += 35.0;
+        }
+        if (descLower.contains(destLower) || descLower.contains(queryLower)) {
+            score += 20.0;
+        }
+
+        // District context match
+        if (district != null && !district.isBlank()) {
+            String distLower = district.toLowerCase().replace(" district", "").trim();
+            if (nameLower.contains(distLower)) {
+                score += 20.0;
+            }
+            if (descLower.contains(distLower)) {
+                score += 15.0;
+            }
+        }
+
+        // Category relevance weighting
+        switch (category) {
+            case "Historical Site":
+            case "Park & Nature":
+                score += 20.0;
+                break;
+            case "Museum":
+            case "Cultural Attraction":
+                score += 15.0;
+                break;
+            case "Landmark":
+                score += 10.0;
+                break;
+            default:
+                score += 5.0;
+                break;
+        }
+
+        // Content quality bonuses
+        if (hasImage) {
+            score += 10.0;
+        }
+        if (description != null && description.length() > 120) {
+            score += 10.0;
+        } else if (description != null && description.length() > 50) {
+            score += 5.0;
+        }
+
+        return score;
+    }
+
+    private double calculateDistanceKm(double lat1, double lon1, double lat2, double lon2) {
+        double earthRadiusKm = 6371.0;
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return earthRadiusKm * c;
     }
 
     private String categorizePlace(String name, String description) {
@@ -243,7 +410,7 @@ public class PlacesService {
         if (containsAny(text, "palace", "castle", "cathedral", "church", "basilica", "temple", "shrine", "mosque", "fort", "fortress", "ruins", "heritage", "monastery", "tomb")) {
             return "Historical Site";
         }
-        if (containsAny(text, "park", "garden", "botanic", "lake", "zoo", "forest", "aquarium", "sanctuary", "waterfall", "mountain", "hill", "beach", "river")) {
+        if (containsAny(text, "park", "garden", "botanic", "lake", "zoo", "forest", "aquarium", "sanctuary", "waterfall", "mountain", "hill", "beach", "river", "ghat", "viewpoint")) {
             return "Park & Nature";
         }
         if (containsAny(text, "theater", "theatre", "opera", "stadium", "arena", "market", "bazaar", "mall", "auditorium")) {
@@ -261,14 +428,12 @@ public class PlacesService {
         return false;
     }
 
-    private Double calculateRating(String imageUrl, String description) {
-        double score = 4.6;
-        if (imageUrl != null && !imageUrl.isEmpty()) {
-            score += 0.2;
-        }
-        if (description != null && description.length() > 100) {
-            score += 0.1;
-        }
-        return Math.min(4.9, Math.round(score * 10.0) / 10.0);
+
+    @lombok.Value
+    private static class ScoredPlace {
+        PlaceDto dto;
+        double score;
+        double distanceKm;
+        String name;
     }
 }

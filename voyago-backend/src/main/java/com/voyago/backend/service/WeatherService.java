@@ -1,5 +1,6 @@
 package com.voyago.backend.service;
 
+import com.voyago.backend.dto.destination.ResolvedDestination;
 import com.voyago.backend.dto.weather.*;
 import com.voyago.backend.exception.DestinationNotFoundException;
 import com.voyago.backend.exception.WeatherServiceException;
@@ -23,13 +24,16 @@ import java.util.List;
 public class WeatherService {
 
     private final RestClient restClient;
+    private final DestinationResolver destinationResolver;
     private final String geocodingUrl;
     private final String forecastUrl;
 
     public WeatherService(
+            DestinationResolver destinationResolver,
             @Value("${weather.open-meteo.geocoding-url:https://geocoding-api.open-meteo.com/v1/search}") String geocodingUrl,
             @Value("${weather.open-meteo.forecast-url:https://api.open-meteo.com/v1/forecast}") String forecastUrl
     ) {
+        this.destinationResolver = destinationResolver;
         this.geocodingUrl = geocodingUrl;
         this.forecastUrl = forecastUrl;
 
@@ -49,14 +53,28 @@ public class WeatherService {
 
         String query = destination.trim();
 
-        // 1. Geocode the destination
-        OpenMeteoGeocodingResponse.GeocodingResult locationResult = geocodeDestination(query);
+        // 1. Resolve via Karnataka Destination Catalog first
+        ResolvedDestination resolved = destinationResolver.resolve(query);
+        LocationDto locationDto;
+
+        if (resolved.isCatalogMatch()) {
+            locationDto = resolved.toLocationDto();
+        } else {
+            // Fallback to external Open-Meteo geocoding (for Tokyo, Paris, and non-catalog places)
+            OpenMeteoGeocodingResponse.GeocodingResult locationResult = geocodeDestination(query);
+            locationDto = LocationDto.builder()
+                    .name(locationResult.getName())
+                    .country(locationResult.getCountry())
+                    .latitude(locationResult.getLatitude())
+                    .longitude(locationResult.getLongitude())
+                    .build();
+        }
 
         // 2. Fetch forecast data for coordinates
-        OpenMeteoForecastResponse forecastData = fetchForecast(locationResult.getLatitude(), locationResult.getLongitude());
+        OpenMeteoForecastResponse forecastData = fetchForecast(locationDto.getLatitude(), locationDto.getLongitude());
 
         // 3. Map to structured frontend-friendly response
-        return mapToWeatherResponse(locationResult, forecastData);
+        return mapToWeatherResponse(locationDto, forecastData);
     }
 
     private OpenMeteoGeocodingResponse.GeocodingResult geocodeDestination(String query) {
@@ -123,16 +141,9 @@ public class WeatherService {
     }
 
     private WeatherResponse mapToWeatherResponse(
-            OpenMeteoGeocodingResponse.GeocodingResult location,
+            LocationDto locationDto,
             OpenMeteoForecastResponse forecast
     ) {
-        // Location DTO
-        LocationDto locationDto = LocationDto.builder()
-                .name(location.getName())
-                .country(location.getCountry())
-                .latitude(location.getLatitude())
-                .longitude(location.getLongitude())
-                .build();
 
         // Current Weather DTO
         CurrentWeatherDto currentWeatherDto = null;

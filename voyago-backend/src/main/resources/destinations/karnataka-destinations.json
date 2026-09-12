@@ -1,0 +1,1568 @@
+[
+  {
+    "name": "Bengaluru",
+    "aliases": "Bangalore, Bengalooru, Bangalore City",
+    "district": "Bengaluru Urban",
+    "category": "CITY",
+    "description": "The capital city of Karnataka, known as India's high-tech hub, celebrated for its pleasant climate, vibrant parks, historical monuments, and cosmopolitan culture.",
+    "latitude": 12.9715987,
+    "longitude": 77.5945627
+  },
+  {
+    "name": "Lalbagh Botanical Garden",
+    "aliases": "Lalbagh, Lal Bagh, Lalbagh Glass House",
+    "district": "Bengaluru Urban",
+    "category": "NATURE",
+    "description": "Historic 240-acre botanical garden commissioned by Hyder Ali in 1760, featuring a famous glass house inspired by London's Crystal Palace and rare tropical plants.",
+    "latitude": 12.9507432,
+    "longitude": 77.5847773
+  },
+  {
+    "name": "Cubbon Park",
+    "aliases": "Sri Chamarajendra Park, Cubbon Park Bangalore",
+    "district": "Bengaluru Urban",
+    "category": "NATURE",
+    "description": "Lush 300-acre public park in the heart of Bengaluru, established in 1870, home to historic administrative buildings and rich floral diversity.",
+    "latitude": 12.9763784,
+    "longitude": 77.5929283
+  },
+  {
+    "name": "Bangalore Palace",
+    "aliases": "Bengaluru Palace",
+    "district": "Bengaluru Urban",
+    "category": "PALACE",
+    "description": "Tudor-style royal palace built in 1887 by Chamaraja Wadiyar, renowned for its fortified towers, woodcarvings, and Victorian interiors.",
+    "latitude": 12.9988223,
+    "longitude": 77.5921008
+  },
+  {
+    "name": "Bannerghatta National Park",
+    "aliases": "Bannerghatta Biological Park, Bannerghatta Zoo, Bannerghatta Safari",
+    "district": "Bengaluru Urban",
+    "category": "NATIONAL_PARK",
+    "description": "Biological park and national sanctuary on Bengaluru's southern edge featuring tiger, lion, and herbivore safaris, a zoo, and India's first butterfly park.",
+    "latitude": 12.8008883,
+    "longitude": 77.5776629
+  },
+  {
+    "name": "ISKCON Temple Bangalore",
+    "aliases": "ISKCON Bangalore, Sri Radha Krishna Temple Rajajinagar, Hare Krishna Hill",
+    "district": "Bengaluru Urban",
+    "category": "TEMPLE",
+    "description": "One of the largest ISKCON temples in the world, situated atop Hare Krishna Hill in Rajajinagar, dedicated to Radha Krishna and Krishna Balarama.",
+    "latitude": 13.0098322,
+    "longitude": 77.5510963
+  },
+  {
+    "name": "Tipu Sultan's Summer Palace",
+    "aliases": "Tipu Summer Palace, Tipu Sultan Palace Bangalore",
+    "district": "Bengaluru Urban",
+    "category": "PALACE",
+    "description": "Exemplary Indo-Islamic teakwood palace completed in 1791 within the Bengaluru Fort complex by Tipu Sultan.",
+    "latitude": 12.9593256,
+    "longitude": 77.5737848
+  },
+  {
+    "name": "Bull Temple",
+    "aliases": "Dodda Basavana Gudi, Nandi Temple Basavanagudi, Basavanagudi Bull Temple",
+    "district": "Bengaluru Urban",
+    "category": "TEMPLE",
+    "description": "Historic 16th-century temple built by Kempe Gowda I in Basavanagudi, housing a massive monolithic granite idol of Nandi.",
+    "latitude": 12.9427329,
+    "longitude": 77.5681285
+  },
+  {
+    "name": "Devanahalli Fort",
+    "aliases": "Devanahalli, Tipu Sultan Birthplace Fort",
+    "district": "Bengaluru Rural",
+    "category": "FORT",
+    "description": "Historic 15th-century stone fort and birthplace of Tipu Sultan, located near Kempegowda International Airport.",
+    "latitude": 13.2486791,
+    "longitude": 77.7126132
+  },
+  {
+    "name": "Ghati Subramanya",
+    "aliases": "Ghati Subramanya Temple, Subramanya Ghati",
+    "district": "Bengaluru Rural",
+    "category": "TEMPLE",
+    "description": "Ancient pilgrimage temple near Doddaballapura where the deity Lord Subramanya and Lord Lakshmi Narasimha emerge from a single monolithic idol.",
+    "latitude": 13.3444654,
+    "longitude": 77.5186064
+  },
+  {
+    "name": "Makalidurga",
+    "aliases": "Makalidurga Fort, Makalidurga Trek, Makalidurga Hill",
+    "district": "Bengaluru Rural",
+    "category": "TREKKING",
+    "description": "Popular trekking destination featuring a hilltop fort ruin with panoramic views of the curving railway line and scenic lake below.",
+    "latitude": 13.4262105,
+    "longitude": 77.5005886
+  },
+  {
+    "name": "Shivagange",
+    "aliases": "Shivaganga, Shivagange Betta, Dakshina Kashi",
+    "district": "Bengaluru Rural",
+    "category": "RELIGIOUS",
+    "description": "A conical rocky hill rising to 1,368 meters, known as Dakshina Kashi, featuring cave temples of Gavisiddheshwara and Honnadevi alongside panoramic views.",
+    "latitude": 13.1711812,
+    "longitude": 77.2284988
+  },
+  {
+    "name": "Mysuru",
+    "aliases": "Mysore, Mysuru City",
+    "district": "Mysuru",
+    "category": "CITY",
+    "description": "The heritage city and former royal capital of the Wadiyar dynasty, world-famous for its grand palace, Dasara festival, silk sarees, and sandalwood.",
+    "latitude": 12.2958104,
+    "longitude": 76.6393805
+  },
+  {
+    "name": "Mysore Palace",
+    "aliases": "Amba Vilas Palace, Mysuru Palace, Mysore Royal Palace",
+    "district": "Mysuru",
+    "category": "PALACE",
+    "description": "Magnificent Indo-Saracenic royal palace designed by Henry Irwin, decorated with rosewood doors, stained glass, and illuminated with nearly 100,000 bulbs.",
+    "latitude": 12.305163,
+    "longitude": 76.6551842
+  },
+  {
+    "name": "Chamundi Hill",
+    "aliases": "Chamundeshwari Temple, Chamundi Betta, Chamundi Hills Mysore",
+    "district": "Mysuru",
+    "category": "TEMPLE",
+    "description": "Prominent hill overlooking Mysuru, crowned by the historic Sri Chamundeshwari Temple and the colossal monolithic Nandi statue along the stone steps.",
+    "latitude": 12.2748805,
+    "longitude": 76.6713915
+  },
+  {
+    "name": "Mysore Zoo",
+    "aliases": "Sri Chamarajendra Zoological Gardens, Mysuru Zoo",
+    "district": "Mysuru",
+    "category": "WILDLIFE",
+    "description": "One of India's oldest and most well-maintained zoos, established in 1892, housing a vast collection of exotic and native wildlife species.",
+    "latitude": 12.3023241,
+    "longitude": 76.6644265
+  },
+  {
+    "name": "Karanji Lake",
+    "aliases": "Karanji Kere, Karanji Lake Nature Park",
+    "district": "Mysuru",
+    "category": "LAKE",
+    "description": "Picturesque lake surrounding Chamundi Hills featuring India's largest walk-through aviary, butterfly park, and boating facilities.",
+    "latitude": 12.3015402,
+    "longitude": 76.6738914
+  },
+  {
+    "name": "St. Philomena's Cathedral",
+    "aliases": "St Philomena Church Mysore, Saint Philomenas Cathedral",
+    "district": "Mysuru",
+    "category": "HERITAGE",
+    "description": "Imposing Neo-Gothic Catholic church constructed in 1936 with twin 175-foot spires inspired by Germany's Cologne Cathedral.",
+    "latitude": 12.3211327,
+    "longitude": 76.6579624
+  },
+  {
+    "name": "Jaganmohan Palace",
+    "aliases": "Jayachamarajendra Art Gallery, Jaganmohan Palace Art Gallery",
+    "district": "Mysuru",
+    "category": "PALACE",
+    "description": "Royal palace built in 1861 housing an exceptional art gallery with masterpieces by Raja Ravi Varma and royal artifacts.",
+    "latitude": 12.3073016,
+    "longitude": 76.6496924
+  },
+  {
+    "name": "Srirangapatna",
+    "aliases": "Srirangapatnam, Srirangapattana, Srirangapatna Fort",
+    "district": "Mandya",
+    "category": "HERITAGE",
+    "description": "Historic river island fortress city on the Kaveri River, former capital of Hyder Ali and Tipu Sultan, home to the ancient Sri Ranganathaswamy Temple and Gumbaz.",
+    "latitude": 12.4239845,
+    "longitude": 76.6953934
+  },
+  {
+    "name": "Ranganathittu Bird Sanctuary",
+    "aliases": "Ranganathittu, Ranganatittu",
+    "district": "Mandya",
+    "category": "BIRD_SANCTUARY",
+    "description": "Renowned bird sanctuary on six islets of the Kaveri River, hosting painted storks, spoonbills, pelicans, and marsh crocodiles on guided boat safaris.",
+    "latitude": 12.4253303,
+    "longitude": 76.6668748
+  },
+  {
+    "name": "Shivanasamudra Falls",
+    "aliases": "Shivanasamudra, Sivasamudram, Gaganachukki, Bharachukki, Gaganachukki and Bharachukki",
+    "district": "Mandya",
+    "category": "WATERFALL",
+    "description": "Spectacular segmented waterfalls on the Kaveri River spanning Mandya and Chamarajanagar districts, dividing into Gaganachukki and Bharachukki cascades, and site of Asia's first hydroelectric power station.",
+    "latitude": 12.2965416,
+    "longitude": 77.1706696
+  },
+  {
+    "name": "Brindavan Gardens",
+    "aliases": "Brindavan Garden, KRS Brindavan Gardens",
+    "district": "Mandya",
+    "category": "NATURE",
+    "description": "Famous terrace garden adjacent to the Krishnarajasagara Dam, celebrated for symmetrical botanical lawns, illuminated fountains, and musical water shows.",
+    "latitude": 12.4258957,
+    "longitude": 76.5746377
+  },
+  {
+    "name": "Krishna Raja Sagara Dam",
+    "aliases": "KRS Dam, Krishnarajasagara, KRS Reservoir",
+    "district": "Mandya",
+    "category": "DAM",
+    "description": "Major gravity dam across the Kaveri River engineered under Sir M. Visvesvaraya, forming the primary reservoir for Mysuru and Bengaluru.",
+    "latitude": 12.4262194,
+    "longitude": 76.5701837
+  },
+  {
+    "name": "Melukote",
+    "aliases": "Melkote, Cheluvanarayana Swamy Temple, Yoga Narasimha Temple Melukote",
+    "district": "Mandya",
+    "category": "RELIGIOUS",
+    "description": "Sacred hilltop town revered in Sri Vaishnavism, home to the ancient Cheluvanarayana Swamy Temple, the hilltop Yoga Narasimha Temple, and Kalyani tank.",
+    "latitude": 12.6644265,
+    "longitude": 76.6508937
+  },
+  {
+    "name": "Kokkare Bellur",
+    "aliases": "Kokkarebellur Pelican Sanctuary, Kokkare Bellur Bird Village",
+    "district": "Mandya",
+    "category": "BIRD_SANCTUARY",
+    "description": "Unique heritage bird village where spot-billed pelicans and painted storks nest in harmony alongside village houses and tamarind trees.",
+    "latitude": 12.5186082,
+    "longitude": 77.0851893
+  },
+  {
+    "name": "Sakleshpur",
+    "aliases": "Sakleshpura, Sakaleshpura, Sakleshpura Town, Sakleshpur Hill Station",
+    "district": "Hassan",
+    "category": "HILL_STATION",
+    "description": "Charming Western Ghats hill station known for lush coffee plantations, spice estates, rolling green hills, mist-covered viewpoints, and trekking trails.",
+    "latitude": 12.9439617,
+    "longitude": 75.7865239
+  },
+  {
+    "name": "Belur",
+    "aliases": "Chennakeshava Temple Belur, Beluru, Velapuri",
+    "district": "Hassan",
+    "category": "HERITAGE",
+    "description": "Historic capital of the Hoysala Empire on the Yagachi River, celebrated for the 12th-century UNESCO World Heritage Chennakeshava Temple with intricate soapstone filigree.",
+    "latitude": 13.1623512,
+    "longitude": 75.8596649
+  },
+  {
+    "name": "Halebidu",
+    "aliases": "Halebeedu, Dwarasamudra, Hoysaleshwara Temple Halebidu, Halebid",
+    "district": "Hassan",
+    "category": "HERITAGE",
+    "description": "UNESCO World Heritage Hoysala capital famed for the twin Hoysaleshwara and Shantaleshwara temples with elaborate relief carvings and friezes.",
+    "latitude": 13.2136014,
+    "longitude": 75.9942703
+  },
+  {
+    "name": "Shravanabelagola",
+    "aliases": "Sravanabelagola, Gommateshwara, Bahubali Monolith, Vindhyagiri",
+    "district": "Hassan",
+    "category": "RELIGIOUS",
+    "description": "World-renowned Jain pilgrimage center home to the 57-foot-tall monolithic statue of Lord Gommateshwara (Bahubali) carved in 981 AD atop Vindhyagiri Hill.",
+    "latitude": 12.8574676,
+    "longitude": 76.4862595
+  },
+  {
+    "name": "Manjarabad Fort",
+    "aliases": "Manjarabad Star Fort, Sakleshpur Star Fort",
+    "district": "Hassan",
+    "category": "FORT",
+    "description": "Unique eight-pointed star fort built in 1792 by Tipu Sultan on a hilltop near Sakleshpur, offering views extending towards the Arabian Sea on clear days.",
+    "latitude": 12.9192461,
+    "longitude": 75.7533875
+  },
+  {
+    "name": "Bisle Ghat",
+    "aliases": "Bisle View Point, Bisle Reserve Forest, Bisle Ghat Trek",
+    "district": "Hassan",
+    "category": "VIEWPOINT",
+    "description": "Breathtaking Western Ghats vantage point offering sweeping vistas of three mountain ranges: Kumara Parvatha, Pushpagiri, and Dodda Betta.",
+    "latitude": 12.7214693,
+    "longitude": 75.7001495
+  },
+  {
+    "name": "Shettihalli Rosary Church",
+    "aliases": "Shettihalli Church, The Drowning Church, Submerged Church Hassan",
+    "district": "Hassan",
+    "category": "HISTORICAL",
+    "description": "Gothic 1860s French church ruin on the Hemavathi Reservoir banks that becomes partially submerged during monsoons and re-emerges in summer.",
+    "latitude": 12.9377864,
+    "longitude": 76.0463943
+  },
+  {
+    "name": "Chikkamagaluru",
+    "aliases": "Chikmagalur, Chikkamagaluru City",
+    "district": "Chikkamagaluru",
+    "category": "HILL_STATION",
+    "description": "Scenic Western Ghats hill station widely regarded as the birthplace of coffee in India, surrounded by cloud-kissed peaks and sprawling estate plantations.",
+    "latitude": 13.3161392,
+    "longitude": 75.772049
+  },
+  {
+    "name": "Mullayanagiri",
+    "aliases": "Mullayanagiri Peak, Mullayyana Giri",
+    "district": "Chikkamagaluru",
+    "category": "TREKKING",
+    "description": "The highest peak in Karnataka at 1,930 meters (6,330 ft), featuring a sage Mullappa Swamy temple at the summit and sweeping trekking trails.",
+    "latitude": 13.3912959,
+    "longitude": 75.7212879
+  },
+  {
+    "name": "Baba Budangiri",
+    "aliases": "Chandra Drona Parvatha, Dattagiri, Baba Budangiri Hills, Inam Dattatreya Peetha",
+    "district": "Chikkamagaluru",
+    "category": "RELIGIOUS",
+    "description": "Sacred mountain range revered by both Hindus and Muslims, named after Sufi saint Baba Budan who brought the first coffee seeds to India.",
+    "latitude": 13.4216896,
+    "longitude": 75.7661209
+  },
+  {
+    "name": "Kudremukh",
+    "aliases": "Kudremukh National Park, Kuduremukha, Kudremukh Peak Trek",
+    "district": "Chikkamagaluru",
+    "category": "NATIONAL_PARK",
+    "description": "Iconic horse-face-shaped mountain peak (1,894m) and UNESCO biodiversity hotspot national park sheltering shola-grassland ecosystems.",
+    "latitude": 13.2173195,
+    "longitude": 75.2536392
+  },
+  {
+    "name": "Kemmangundi",
+    "aliases": "Kemmannugundi, KR Hills, Sri Krishnarajendra Hill Station",
+    "district": "Chikkamagaluru",
+    "category": "HILL_STATION",
+    "description": "Picturesque hill station situated at 1,434 meters amidst the Baba Budan range, once the summer retreat of Maharaja Krishnaraja Wadiyar IV.",
+    "latitude": 13.5487723,
+    "longitude": 75.7570496
+  },
+  {
+    "name": "Hebbe Falls",
+    "aliases": "Hebbe Waterfalls, Dodda Hebbe, Chikka Hebbe",
+    "district": "Chikkamagaluru",
+    "category": "WATERFALL",
+    "description": "Enchanting 551-foot two-stage waterfall tucked inside a coffee estate near Kemmangundi, accessible via thrilling jeep rides and nature trails.",
+    "latitude": 13.5350914,
+    "longitude": 75.7337341
+  },
+  {
+    "name": "Sringeri",
+    "aliases": "Sringeri Sharada Peetham, Sri Sharadamba Temple Sringeri, Sringeri Mutt",
+    "district": "Chikkamagaluru",
+    "category": "RELIGIOUS",
+    "description": "Historic pilgrimage center on the Tunga River, home to the premier southern monastic seat established by Adi Shankaracharya in the 8th century.",
+    "latitude": 13.4191399,
+    "longitude": 75.2570038
+  },
+  {
+    "name": "Horanadu",
+    "aliases": "Hornadu, Annapoorneshwari Temple Horanadu, Sri Kshethra Horanadu",
+    "district": "Chikkamagaluru",
+    "category": "TEMPLE",
+    "description": "Sacred temple village nestled amid verdant Western Ghats hills, dedicated to Goddess Annapoorneshwari, provider of sustenance.",
+    "latitude": 13.2721833,
+    "longitude": 75.3432083
+  },
+  {
+    "name": "Bhadra Wildlife Sanctuary",
+    "aliases": "Muthodi Wildlife Sanctuary, Bhadra Tiger Reserve",
+    "district": "Chikkamagaluru",
+    "category": "TIGER_RESERVE",
+    "description": "Protected tiger reserve and wildlife haven encompassing dry deciduous to moist evergreen forests around the Bhadra Reservoir.",
+    "latitude": 13.6938903,
+    "longitude": 75.6425171
+  },
+  {
+    "name": "Kodagu",
+    "aliases": "Coorg, Kodagu District, Madikeri Region",
+    "district": "Kodagu",
+    "category": "HILL_STATION",
+    "description": "Picturesque hill district and region in southwestern Karnataka celebrated for mist-clad coffee estates, spice plantations, lush rainforests, and martial Kodava culture.",
+    "latitude": 12.3375,
+    "longitude": 75.8069
+  },
+  {
+    "name": "Madikeri",
+    "aliases": "Mercara, Madikeri Town, Madikeri Fort",
+    "district": "Kodagu",
+    "category": "HILL_STATION",
+    "description": "The picturesque hill capital of Kodagu district, featuring Madikeri Fort, Raja's Seat, Omkareshwara Temple, and panoramic viewpoints.",
+    "latitude": 12.4244242,
+    "longitude": 75.7381897
+  },
+  {
+    "name": "Raja's Seat",
+    "aliases": "Rajas Seat Madikeri, Raja Seat Viewpoint",
+    "district": "Kodagu",
+    "category": "VIEWPOINT",
+    "description": "Historic garden and seasonal flower pavilion in Madikeri where Kodagu kings enjoyed spectacular sunsets over undulating green valleys.",
+    "latitude": 12.4172439,
+    "longitude": 75.7360077
+  },
+  {
+    "name": "Abbey Falls",
+    "aliases": "Abbi Falls, Jessy Falls, Abbey Falls Madikeri",
+    "district": "Kodagu",
+    "category": "WATERFALL",
+    "description": "Spectacular cascade on the Kaveri River tributary gushing amid private coffee and spice plantations, viewed from a hanging bridge.",
+    "latitude": 12.4542236,
+    "longitude": 75.7176132
+  },
+  {
+    "name": "Talakaveri",
+    "aliases": "Talacauvery, Talakaveri Temple, Brahmagiri Hills Coorg",
+    "district": "Kodagu",
+    "category": "RELIGIOUS",
+    "description": "The sacred source of the holy Kaveri River, located at an elevation of 1,276 meters on the slopes of Brahmagiri Hill.",
+    "latitude": 12.3875389,
+    "longitude": 75.4891281
+  },
+  {
+    "name": "Bhagamandala",
+    "aliases": "Bhagandeshwara Temple, Triveni Sangama Bhagamandala",
+    "district": "Kodagu",
+    "category": "RELIGIOUS",
+    "description": "Holy pilgrimage confluence of three rivers (Kaveri, Kannike, and mythological Sujyothi) crowned by the Kerala-style Sri Bhagandeshwara Temple.",
+    "latitude": 12.3892746,
+    "longitude": 75.5303497
+  },
+  {
+    "name": "Dubare Elephant Camp",
+    "aliases": "Dubare, Dubare Forest, Dubare Kaveri Camp",
+    "district": "Kodagu",
+    "category": "WILDLIFE",
+    "description": "Famous elephant training camp on the banks of the Kaveri River offering bathing, feeding, and river rafting interactions.",
+    "latitude": 12.3686256,
+    "longitude": 75.9038467
+  },
+  {
+    "name": "Namdroling Monastery",
+    "aliases": "Golden Temple Bylakuppe, Bylakuppe Tibetan Settlement, Namdroling Nyingmapa Monastery",
+    "district": "Mysuru",
+    "category": "HERITAGE",
+    "description": "The largest teaching center of the Nyingma lineage of Tibetan Buddhism, located in Bylakuppe (Mysuru district near the Kushalnagar/Kodagu tourism gateway), featuring three 40-foot golden Buddha statues and vibrant murals.",
+    "latitude": 12.4287109,
+    "longitude": 75.9669037
+  },
+  {
+    "name": "Nagarhole National Park",
+    "aliases": "Rajiv Gandhi National Park Nagarhole, Nagarhole Tiger Reserve, Nagarahole",
+    "district": "Mysuru",
+    "category": "TIGER_RESERVE",
+    "description": "Premier tiger and elephant reserve spanning Mysuru and Kodagu districts along the Kabini River, part of the Nilgiri Biosphere Reserve with rich populations of leopards and wild dogs.",
+    "latitude": 12.0298004,
+    "longitude": 76.1437988
+  },
+  {
+    "name": "Tadiandamol",
+    "aliases": "Tadiyandamol Peak, Tadiandamol Trek",
+    "district": "Kodagu",
+    "category": "TREKKING",
+    "description": "The highest peak in Kodagu district at 1,748 meters, offering a scenic trek through shola forests and misty ridges near Nalaknad Palace.",
+    "latitude": 12.2155705,
+    "longitude": 75.6105804
+  },
+  {
+    "name": "Iruppu Falls",
+    "aliases": "Irupu Falls, Lakshmana Tirtha Falls, Iruppu Waterfalls",
+    "district": "Kodagu",
+    "category": "WATERFALL",
+    "description": "Sacred freshwater cascade originating from the Lakshmana Tirtha stream in Brahmagiri range, adjoining the Rameshwara temple.",
+    "latitude": 11.9796009,
+    "longitude": 75.9926987
+  },
+  {
+    "name": "Mandalpatti",
+    "aliases": "Mandalpatti Peak, Mugilu Pette, Mandalpatti View Point",
+    "district": "Kodagu",
+    "category": "VIEWPOINT",
+    "description": "Spectacular hilltop viewpoint overlooking Pushpagiri wildlife sanctuary, famous for off-road 4x4 jeep rides through lush green rolling hills.",
+    "latitude": 12.5027428,
+    "longitude": 75.688179
+  },
+  {
+    "name": "Bandipur National Park",
+    "aliases": "Bandipur Tiger Reserve, Bandipur Safari, Bandipura",
+    "district": "Chamarajanagar",
+    "category": "TIGER_RESERVE",
+    "description": "Renowned national park established under Project Tiger in 1974, home to the second-highest tiger population in India alongside Asian elephants and gaurs.",
+    "latitude": 11.6663895,
+    "longitude": 76.6291656
+  },
+  {
+    "name": "BR Hills",
+    "aliases": "Biligirirangana Hills, Biligiriranga Hills, BRT Wildlife Sanctuary, Biligiriranganatha Swamy Temple",
+    "district": "Chamarajanagar",
+    "category": "TIGER_RESERVE",
+    "description": "Ecological bridge connecting the Eastern and Western Ghats, featuring endemic wildlife, Soliga tribal culture, and the hilltop Biligiriranganatha temple.",
+    "latitude": 11.9961605,
+    "longitude": 77.1432877
+  },
+  {
+    "name": "Himavad Gopalaswamy Betta",
+    "aliases": "Gopalaswamy Betta, Himavad Gopalaswamy Temple",
+    "district": "Chamarajanagar",
+    "category": "HILL_STATION",
+    "description": "The highest peak in Bandipur National Park (1,454m), shrouded in perpetual morning fog, featuring an ancient 14th-century temple dedicated to Lord Krishna.",
+    "latitude": 11.7228003,
+    "longitude": 76.5772018
+  },
+  {
+    "name": "Male Mahadeshwara Hills",
+    "aliases": "MM Hills, Malai Mahadeshwara Betta, MM Hills Temple",
+    "district": "Chamarajanagar",
+    "category": "RELIGIOUS",
+    "description": "Major Shaivite pilgrimage center set in deep forested hills on the border of Karnataka and Tamil Nadu, dedicated to Lord Male Mahadeshwara.",
+    "latitude": 12.0367,
+    "longitude": 77.5619
+  },
+  {
+    "name": "Nandi Hills",
+    "aliases": "Nandidurga, Nandi Betta, Nandi Hills Sunrise, Tipu's Drop Nandi Hills",
+    "district": "Chikkaballapura",
+    "category": "HILL_STATION",
+    "description": "Ancient hill fortress rising 1,478 meters, famous for sunrise views above the cloud layer, Tipu's Drop, and historic summer residences.",
+    "latitude": 13.370163,
+    "longitude": 77.6834641
+  },
+  {
+    "name": "Skandagiri",
+    "aliases": "Kalavara Durga, Skandagiri Sunrise",
+    "district": "Chikkaballapura",
+    "category": "TREKKING",
+    "description": "Popular mountain peak famous for overnight wilderness treks to witness the sunrise over an ethereal blanket of morning clouds.",
+    "latitude": 13.4184656,
+    "longitude": 77.6834412
+  },
+  {
+    "name": "Bhoga Nandeeshwara Temple",
+    "aliases": "Nandi Temple Nandi Village, Bhoganandishwara Temple",
+    "district": "Chikkaballapura",
+    "category": "HERITAGE",
+    "description": "Magnificent 9th-century temple complex at the foot of Nandi Hills representing architecture from Nolamba, Rashtrakuta, Chola, Hoysala, and Vijayanagara eras.",
+    "latitude": 13.3857508,
+    "longitude": 77.6974792
+  },
+  {
+    "name": "Kotilingeshwara Temple",
+    "aliases": "Kotilingeshwara, Kammasandra Temple",
+    "district": "Kolar",
+    "category": "TEMPLE",
+    "description": "Famed Hindu temple complex in Kammasandra village housing one of the world's largest Shiva Lingas (108 ft) surrounded by millions of smaller lingas.",
+    "latitude": 12.9818802,
+    "longitude": 78.3093262
+  },
+  {
+    "name": "Kolar Gold Fields",
+    "aliases": "KGF, Champion Reef, Kolar Mining Town",
+    "district": "Kolar",
+    "category": "HISTORICAL",
+    "description": "Historic gold mining region known for its colonial Anglo-Indian architecture, century-old underground shafts, and heritage township.",
+    "latitude": 12.9602499,
+    "longitude": 78.2709274
+  },
+  {
+    "name": "Antaragange",
+    "aliases": "Anthargange, Antargange Cave Trek, Kolar Shathashrunga",
+    "district": "Kolar",
+    "category": "TREKKING",
+    "description": "Unique mountain formation composed of volcanic granite boulders, cave systems, and a perennial sacred freshwater spring.",
+    "latitude": 13.1418934,
+    "longitude": 78.100914
+  },
+  {
+    "name": "Ramanagara",
+    "aliases": "Ramnagaram, Ramadevara Betta Vulture Sanctuary",
+    "district": "Ramanagara",
+    "category": "ADVENTURE",
+    "description": "Famous for massive granite outcrops, silk production, rock climbing, and the iconic filming location of the classic Bollywood movie Sholay.",
+    "latitude": 12.7208948,
+    "longitude": 77.2798843
+  },
+  {
+    "name": "Janapada Loka",
+    "aliases": "Janapadaloka",
+    "district": "Ramanagara",
+    "category": "CULTURAL",
+    "description": "Extensive open-air folk culture museum dedicated to preserving and showcasing Karnataka's vibrant rural arts, crafts, and heritage traditions.",
+    "latitude": 12.6738911,
+    "longitude": 77.2917786
+  },
+  {
+    "name": "Savandurga",
+    "aliases": "Savandurga Monolith, Savandurga Trek, Karigudda and Biligudda",
+    "district": "Ramanagara",
+    "category": "TREKKING",
+    "description": "One of the largest monolithic granite hills in Asia, rising 1,226 meters above sea level, featuring hill fortress ruins built by Kempe Gowda II.",
+    "latitude": 12.9195995,
+    "longitude": 77.2932968
+  },
+  {
+    "name": "Mekedatu",
+    "aliases": "Mekedatu Gorge, Sangama and Mekedatu",
+    "district": "Ramanagara",
+    "category": "NATURE",
+    "description": "Deep, narrow rocky gorge where the Kaveri River rushes with immense power, named 'Goat's Leap' from legend.",
+    "latitude": 12.2536898,
+    "longitude": 77.4475479
+  },
+  {
+    "name": "Devarayanadurga",
+    "aliases": "DD Hills, Devarayanadurga Hill, Yoga Narasimha Temple DD Hills",
+    "district": "Tumakuru",
+    "category": "HILL_STATION",
+    "description": "Forested hill station at 1,204 meters surrounded by rocky hillocks, featuring the Bhoga and Yoga Narasimha temples and Namada Chilume spring.",
+    "latitude": 13.3737297,
+    "longitude": 77.2104568
+  },
+  {
+    "name": "Madhugiri Fort",
+    "aliases": "Madhugiri Monolith, Madhugiri Betta Trek",
+    "district": "Tumakuru",
+    "category": "FORT",
+    "description": "Asia's second largest monolithic granite hill (1,200m), crowned by a multi-tiered fortress built by Raja Heera Gowda and fortified by Hyder Ali.",
+    "latitude": 13.6631899,
+    "longitude": 77.210968
+  },
+  {
+    "name": "Hampi",
+    "aliases": "Vijayanagara, Hampe, Kishkindha, Hampi Ruins, UNESCO World Heritage Hampi",
+    "district": "Vijayanagara",
+    "category": "HERITAGE",
+    "description": "Spectacular UNESCO World Heritage Site featuring ruins of the medieval Vijayanagara Empire across surreal boulder-strewn landscapes along the Tungabhadra River.",
+    "latitude": 15.3350132,
+    "longitude": 76.4600244
+  },
+  {
+    "name": "Virupaksha Temple",
+    "aliases": "Hampi Virupaksha, Pampapathi Temple Hampi",
+    "district": "Vijayanagara",
+    "category": "TEMPLE",
+    "description": "Continuously active 7th-century Dravidian temple complex dedicated to Lord Shiva as Virupaksha, featuring a 50-meter eastern gateway gopuram.",
+    "latitude": 15.3353596,
+    "longitude": 76.459343
+  },
+  {
+    "name": "Vijaya Vittala Temple",
+    "aliases": "Vittala Temple Hampi, Stone Chariot Hampi, Musical Pillars Temple",
+    "district": "Vijayanagara",
+    "category": "HERITAGE",
+    "description": "Masterpiece of Vijayanagara architecture renowned for its iconic Stone Chariot (featured on India's ₹50 banknote) and 56 melodic musical pillars.",
+    "latitude": 15.3436899,
+    "longitude": 76.4751511
+  },
+  {
+    "name": "Lotus Mahal",
+    "aliases": "Kamal Mahal Hampi, Lotus Temple Zenana Enclosure",
+    "district": "Vijayanagara",
+    "category": "PALACE",
+    "description": "Exquisite two-story Indo-Islamic pavilion in the Zenana Enclosure, styled like an unfurling lotus bud with recessed arches and natural water cooling.",
+    "latitude": 15.3204994,
+    "longitude": 76.4716034
+  },
+  {
+    "name": "Elephant Stables",
+    "aliases": "Hampi Elephant Stables, Royal Stables Hampi",
+    "district": "Vijayanagara",
+    "category": "HERITAGE",
+    "description": "Monumental Indo-Islamic building comprising 11 interconnected domed chambers used to house the royal state elephants of the Vijayanagara kings.",
+    "latitude": 15.3209505,
+    "longitude": 76.473999
+  },
+  {
+    "name": "Matanga Hill",
+    "aliases": "Matanga Betta",
+    "district": "Vijayanagara",
+    "category": "VIEWPOINT",
+    "description": "The highest point in Hampi offering incomparable 360-degree views of the sprawling ruins, Tungabhadra River, and Achyutaraya Temple at dawn and dusk.",
+    "latitude": 15.3315907,
+    "longitude": 76.4678879
+  },
+  {
+    "name": "Tungabhadra Dam",
+    "aliases": "TB Dam Hospet, Tungabhadra Reservoir, Hospet Dam",
+    "district": "Vijayanagara",
+    "category": "DAM",
+    "description": "Majestic multipurpose dam across the Tungabhadra River near Hosapete, featuring musical fountain gardens, watchtowers, and panoramic water vistas.",
+    "latitude": 15.2632294,
+    "longitude": 76.33535
+  },
+  {
+    "name": "Badami",
+    "aliases": "Vatapi, Badami Cave Temples, Badami Rock Cut Caves",
+    "district": "Bagalkot",
+    "category": "HERITAGE",
+    "description": "Regal 6th-century capital of the Early Chalukya dynasty, famous for rock-cut cave temples carved into red sandstone cliffs surrounding Agastya Lake.",
+    "latitude": 15.9189672,
+    "longitude": 75.6766434
+  },
+  {
+    "name": "Aihole",
+    "aliases": "Aryapura, Durga Temple Aihole",
+    "district": "Bagalkot",
+    "category": "HERITAGE",
+    "description": "Historic town containing over 120 stone and rock-cut temples dating from the 4th to 12th century, known as the laboratory of Indian temple architecture.",
+    "latitude": 16.0210209,
+    "longitude": 75.8821487
+  },
+  {
+    "name": "Pattadakal",
+    "aliases": "Pattadakallu, Raktapura, UNESCO Pattadakal Monuments",
+    "district": "Bagalkot",
+    "category": "HERITAGE",
+    "description": "UNESCO World Heritage Site on the Malaprabha River showcasing a harmonious blend of Dravidian and Nagara temple architectural traditions.",
+    "latitude": 15.9490337,
+    "longitude": 75.8164062
+  },
+  {
+    "name": "Banashankari Temple",
+    "aliases": "Banashankari Amma Temple Badami, Shakambhari Temple Cholachagudda",
+    "district": "Bagalkot",
+    "category": "TEMPLE",
+    "description": "Historic 7th-century temple dedicated to Goddess Banashankari located in Cholachagudda near Badami, featuring the Haridra Tirtha water tank.",
+    "latitude": 15.8757009,
+    "longitude": 75.7077026
+  },
+  {
+    "name": "Mahakuta",
+    "aliases": "Mahakuteshwara Temple, Mahakuta Temples",
+    "district": "Bagalkot",
+    "category": "HERITAGE",
+    "description": "Peaceful early Chalukyan temple complex set in a forested grove, famous for the Pushkarini spring-fed sacred pool and Shiva shrines.",
+    "latitude": 15.9342,
+    "longitude": 75.7236
+  },
+  {
+    "name": "Gokak Falls",
+    "aliases": "Gokak Waterfalls, Ghataprabha Falls",
+    "district": "Belagavi",
+    "category": "WATERFALL",
+    "description": "Dramatic 52-meter horseshoe-shaped waterfall on the Ghataprabha River, featuring a colonial suspension bridge and historic sandstone temples.",
+    "latitude": 16.1772652,
+    "longitude": 74.8315125
+  },
+  {
+    "name": "Belagavi Fort",
+    "aliases": "Belgaum Fort, Kamal Basti Belgaum",
+    "district": "Belagavi",
+    "category": "FORT",
+    "description": "12th-century stone fort originally built by the Ratta dynasty, featuring ancient Jain temples (Kamala Basadi), historic mosques, and lush moats.",
+    "latitude": 15.8596668,
+    "longitude": 74.5222015
+  },
+  {
+    "name": "Kittur Fort",
+    "aliases": "Kittur, Rani Chennamma Fort Kittur, Kittur Palace",
+    "district": "Belagavi",
+    "category": "HISTORICAL",
+    "description": "Historical stronghold of Queen Rani Chennamma who fought against the British East India Company in 1824, housing an archaeological museum.",
+    "latitude": 15.5976543,
+    "longitude": 74.7937469
+  },
+  {
+    "name": "Yellamma Temple Saundatti",
+    "aliases": "Saundatti Yellamma, Renuka Yellamma Temple, Savadatti",
+    "district": "Belagavi",
+    "category": "RELIGIOUS",
+    "description": "One of the most frequented pilgrimage shrines in northern Karnataka, dedicated to Goddess Renuka (Yellamma) atop Yellammagudda hill.",
+    "latitude": 15.7725983,
+    "longitude": 75.1202011
+  },
+  {
+    "name": "Gokarna",
+    "aliases": "Gokarna Beach, Mahabaleshwara Temple Gokarna",
+    "district": "Uttara Kannada",
+    "category": "BEACH",
+    "description": "Sacred coastal pilgrimage town and pristine beach haven, famed for the Atmalinga at Sri Mahabaleshwara Temple and secluded trekking beaches.",
+    "latitude": 14.5478592,
+    "longitude": 74.3188324
+  },
+  {
+    "name": "Om Beach",
+    "aliases": "Ohm Beach Gokarna, Om Beach Trek",
+    "district": "Uttara Kannada",
+    "category": "BEACH",
+    "description": "Famous natural crescent beach in Gokarna shaped like the spiritual Hindu 'Om' (🕉️) symbol, renowned for sea walks and water sports.",
+    "latitude": 14.5165997,
+    "longitude": 74.316803
+  },
+  {
+    "name": "Kudle Beach",
+    "aliases": "Kudle Gokarna, Cooldle Beach",
+    "district": "Uttara Kannada",
+    "category": "BEACH",
+    "description": "Wide, crescent sandy beach enclosed by green headlands, ideal for relaxing sunsets, yoga, and cliff-walk connectivity to Om Beach.",
+    "latitude": 14.5297298,
+    "longitude": 74.3146362
+  },
+  {
+    "name": "Murudeshwar",
+    "aliases": "Murudeshwara, Murdeshwar Temple",
+    "district": "Uttara Kannada",
+    "category": "TEMPLE",
+    "description": "Iconic seaside pilgrimage destination featuring the world's second-tallest Shiva statue (123 ft) and the towering 20-story Raja Gopura overlooking the Arabian Sea.",
+    "latitude": 14.094038,
+    "longitude": 74.4899979
+  },
+  {
+    "name": "Dandeli",
+    "aliases": "Dandeli Wildlife Sanctuary, Dandeli River Rafting, Kali River Dandeli",
+    "district": "Uttara Kannada",
+    "category": "ADVENTURE",
+    "description": "Adventure capital of Karnataka situated on the Kali River, famous for white-water rafting, jungle safaris, black panther sightings, and birdwatching.",
+    "latitude": 15.2361202,
+    "longitude": 74.6190796
+  },
+  {
+    "name": "Yana Rocks",
+    "aliases": "Yana Caves, Bhairaveshwara Shikhara, Mohini Shikhara Yana",
+    "district": "Uttara Kannada",
+    "category": "NATURE",
+    "description": "Two massive monolithic black karst rock towers rising dramatically out of dense Sahyadri rainforests, housing a natural cave shrine.",
+    "latitude": 14.5583696,
+    "longitude": 74.5615005
+  },
+  {
+    "name": "Mirjan Fort",
+    "aliases": "Mirjan Kota, Rani Chennabhairadevi Fort",
+    "district": "Uttara Kannada",
+    "category": "FORT",
+    "description": "Scenic 16th-century laterite fort built along the Aghanashini River by Queen Chennabhairadevi (the 'Pepper Queen'), known for its high bastions and moat.",
+    "latitude": 14.4925899,
+    "longitude": 74.4225006
+  },
+  {
+    "name": "Karwar",
+    "aliases": "Karwar Beach, Rabindranath Tagore Beach Karwar, Kali River Bridge",
+    "district": "Uttara Kannada",
+    "category": "COASTAL",
+    "description": "Peaceful port city on the Goa-Karnataka border praised by Rabindranath Tagore, famous for pristine beaches, INS Chapal warship museum, and seafood.",
+    "latitude": 14.8135405,
+    "longitude": 74.1297531
+  },
+  {
+    "name": "Udupi",
+    "aliases": "Udupi Town, Temple Town Udupi, Odipu",
+    "district": "Udupi",
+    "category": "CITY",
+    "description": "Renowned temple town and culinary capital of coastal Karnataka, birthplace of Udupi cuisine, and home to the sacred 13th-century Sri Krishna Matha.",
+    "latitude": 13.3408804,
+    "longitude": 74.7421417
+  },
+  {
+    "name": "Sri Krishna Matha",
+    "aliases": "Udupi Krishna Temple, Kanakana Kindi, Udupi Sri Krishna Mutt",
+    "district": "Udupi",
+    "category": "TEMPLE",
+    "description": "Major Dvaita Vedanta pilgrimage monastery founded by saint Madhvacharya, where Lord Krishna's idol is viewed exclusively through the nine-holed silver window (Kanakana Kindi).",
+    "latitude": 13.3409195,
+    "longitude": 74.7523575
+  },
+  {
+    "name": "Malpe Beach",
+    "aliases": "Malpe Beach Udupi",
+    "district": "Udupi",
+    "category": "BEACH",
+    "description": "Vibrant coastal harbor and beach known for golden sands, parasailing, water sports, and India's first sea-walk way.",
+    "latitude": 13.3575001,
+    "longitude": 74.7011032
+  },
+  {
+    "name": "St. Mary's Island",
+    "aliases": "St Marys Islands, Coconut Island, Thonsepar",
+    "district": "Udupi",
+    "category": "HERITAGE",
+    "description": "Unique geological monument of four uninhabited islands off Malpe, famous for distinct hexagonal columnar basaltic rock formations formed millions of years ago.",
+    "latitude": 13.3797302,
+    "longitude": 74.6738968
+  },
+  {
+    "name": "Kaup Beach",
+    "aliases": "Kapu Beach, Kaup Lighthouse, Kapu Sea Beach",
+    "district": "Udupi",
+    "category": "BEACH",
+    "description": "Scenic rocky beach dominated by a functional 1901 British lighthouse offering sweeping vistas of the Arabian Sea coastline.",
+    "latitude": 13.2238808,
+    "longitude": 74.7380981
+  },
+  {
+    "name": "Maravanthe Beach",
+    "aliases": "Maravanthe, NH66 Maravanthe",
+    "district": "Udupi",
+    "category": "BEACH",
+    "description": "Stunning scenic coastal highway stretch where NH 66 runs with the Arabian Sea on one side and the calm Souparnika River on the other.",
+    "latitude": 13.7027893,
+    "longitude": 74.6469421
+  },
+  {
+    "name": "Kollur Mookambika Temple",
+    "aliases": "Kollur, Mookambika Temple Kollur, Sri Mookambika Temple",
+    "district": "Udupi",
+    "category": "TEMPLE",
+    "description": "Revered Shakti pilgrimage shrine situated at the foothills of Kodachadri, dedicated to Goddess Mookambika, patron of arts and learning.",
+    "latitude": 13.8653297,
+    "longitude": 74.8140335
+  },
+  {
+    "name": "Mangaluru",
+    "aliases": "Mangalore, Kudla, Mangaluru Port",
+    "district": "Dakshina Kannada",
+    "category": "CITY",
+    "description": "Major port city and commercial hub of coastal Karnataka, celebrated for distinct Tuluva heritage, pristine beaches, and rich coastal delicacies.",
+    "latitude": 12.9141417,
+    "longitude": 74.855957
+  },
+  {
+    "name": "Panambur Beach",
+    "aliases": "Panamburu Beach, Mangalore Port Beach",
+    "district": "Dakshina Kannada",
+    "category": "BEACH",
+    "description": "Safe, well-maintained beach near New Mangalore Port, famous for camel rides, jet skis, and the annual International Kite Festival.",
+    "latitude": 12.9363899,
+    "longitude": 74.8013916
+  },
+  {
+    "name": "Tannirbhavi Beach",
+    "aliases": "Tannirbhavi",
+    "district": "Dakshina Kannada",
+    "category": "BEACH",
+    "description": "Tranquil sandy beach accessible via scenic ferry across the Gurupura River, flanked by a lush coastal tree park.",
+    "latitude": 12.8950005,
+    "longitude": 74.808609
+  },
+  {
+    "name": "Dharmasthala",
+    "aliases": "Sri Manjunatha Swamy Temple Dharmasthala, Dharmastala, Shri Kshetra Dharmasthala",
+    "district": "Dakshina Kannada",
+    "category": "RELIGIOUS",
+    "description": "Renowned temple town on the Netravati River, exemplifying communal harmony where Jain Heggade administrators manage the shrine of Lord Shiva (Manjunatha).",
+    "latitude": 12.9567995,
+    "longitude": 75.3807983
+  },
+  {
+    "name": "Kukke Subramanya",
+    "aliases": "Subramanya, Kukke Sri Subramanya Temple, Kukke",
+    "district": "Dakshina Kannada",
+    "category": "TEMPLE",
+    "description": "Ancient sacred temple nestled in the foothills of Kumara Parvatha on the Kumaradhara River, dedicated to Lord Subramanya as the protector from Sarpa Dosha.",
+    "latitude": 12.6631002,
+    "longitude": 75.6186981
+  },
+  {
+    "name": "Kateel",
+    "aliases": "Kateel Durga Parameshwari Temple, Kateelu, Nandini River Kateel",
+    "district": "Dakshina Kannada",
+    "category": "TEMPLE",
+    "description": "Sacred island temple dedicated to Goddess Durga Parameshwari, located on a natural islet in the middle of the flowing Nandini River.",
+    "latitude": 13.0163994,
+    "longitude": 74.8452988
+  },
+  {
+    "name": "Moodabidri",
+    "aliases": "Moodbidri, Thousand Pillar Temple, Tribhuvana Tilaka Chudamani",
+    "district": "Dakshina Kannada",
+    "category": "HERITAGE",
+    "description": "Jain Kashi of the South, renowned for the 1430 AD Thousand Pillar Basadi (Saavira Kambada Basadi) where no two stone pillars share identical carving.",
+    "latitude": 13.0691996,
+    "longitude": 74.9961014
+  },
+  {
+    "name": "Jog Falls",
+    "aliases": "Gerosoppa Falls, Joga, Raja Roarer Rocket Rani, Sharavathi Falls",
+    "district": "Shivamogga",
+    "category": "WATERFALL",
+    "description": "Second-highest plunge waterfall in India (253 meters) on the Sharavathi River, composed of four distinct cascades: Raja, Roarer, Rocket, and Rani.",
+    "latitude": 14.2281895,
+    "longitude": 74.8122025
+  },
+  {
+    "name": "Shivamogga",
+    "aliases": "Shimoga, Gateway to Malnad, Shimoga City",
+    "district": "Shivamogga",
+    "category": "CITY",
+    "description": "The gateway city to the verdant Malnad region on the Tunga River, surrounded by rivers, waterfalls, dense forests, and wildlife reserves.",
+    "latitude": 13.9299297,
+    "longitude": 75.5681076
+  },
+  {
+    "name": "Agumbe",
+    "aliases": "Agumbe Rainforest Research Station",
+    "district": "Shivamogga",
+    "category": "NATURE",
+    "description": "High-rainfall Western Ghats village known as the 'Cherrapunji of the South', famous for King Cobra ecology, dense rainforests, and spectacular sunsets over the Arabian Sea.",
+    "latitude": 13.5028095,
+    "longitude": 75.0924988
+  },
+  {
+    "name": "Kodachadri",
+    "aliases": "Kodachadri Peak, Kodachadri Trek, Sarvajna Peetha Kodachadri",
+    "district": "Shivamogga",
+    "category": "TREKKING",
+    "description": "Natural heritage mountain peak (1,343m) covered in shola rainforests, where Adi Shankaracharya meditated at the Sarvajna Peetha.",
+    "latitude": 13.8569803,
+    "longitude": 74.8732986
+  },
+  {
+    "name": "Sigandur",
+    "aliases": "Sigandur Chowdeshwari Temple, Siganduru, Sharavathi Backwaters Sigandur",
+    "district": "Shivamogga",
+    "category": "TEMPLE",
+    "description": "Revered temple village on the backwaters of the Sharavathi River, famous for Goddess Chowdeshwari and scenic barge-ferry crossings.",
+    "latitude": 14.0792007,
+    "longitude": 74.9080963
+  },
+  {
+    "name": "Sakrebyle Elephant Camp",
+    "aliases": "Sakrebailu, Sakrebyle Camp Shimoga, Tunga Elephant Camp",
+    "district": "Shivamogga",
+    "category": "WILDLIFE",
+    "description": "Renowned forest department elephant camp on the Tunga River backwaters where captive and rehabilitated wild elephants bathe and interact.",
+    "latitude": 13.8827991,
+    "longitude": 75.5186005
+  },
+  {
+    "name": "Chitradurga Fort",
+    "aliases": "Chitradurga, Kallina Kote, Elusuttina Kote, Onake Obavana Kindi",
+    "district": "Chitradurga",
+    "category": "FORT",
+    "description": "Monumental impregnable stone fortress featuring seven circular concentric defense walls, 18 temples, intricate rainwater harvesting tanks, and the legendary Onake Obavva crevice.",
+    "latitude": 14.2183895,
+    "longitude": 76.398613
+  },
+  {
+    "name": "Vani Vilas Sagar",
+    "aliases": "Marikanive Dam, Vani Vilasa Sagara",
+    "district": "Chitradurga",
+    "category": "DAM",
+    "description": "The oldest dam in Karnataka, constructed across the Vedavathi River in 1907 by the Mysore Maharajas, showcasing stone masonry architecture.",
+    "latitude": 13.9880991,
+    "longitude": 76.4862976
+  },
+  {
+    "name": "Bidar Fort",
+    "aliases": "Bidar, Sultanate Fort Bidar, Bahmani Fort Bidar",
+    "district": "Bidar",
+    "category": "FORT",
+    "description": "Massive 15th-century Bahmani Sultanate citadel featuring triple-moat defenses, Rangin Mahal woodcraft with Persian mother-of-pearl inlays, and the Solah Khamba mosque.",
+    "latitude": 17.9254894,
+    "longitude": 77.5255966
+  },
+  {
+    "name": "Mahmud Gawan Madrasa",
+    "aliases": "Madrasa of Mahmud Gawan, Mahmud Gawan Bidar",
+    "district": "Bidar",
+    "category": "HERITAGE",
+    "description": "Ancient medieval Islamic university built in 1472 by Prime Minister Mahmud Gawan, adorned with Persian glazed ceramic blue tiles and towering minarets.",
+    "latitude": 17.9130993,
+    "longitude": 77.5147018
+  },
+  {
+    "name": "Gurudwara Nanak Jhira Sahib",
+    "aliases": "Nanak Jhira Bidar, Gurdwara Nanak Jhira Sahib",
+    "district": "Bidar",
+    "category": "RELIGIOUS",
+    "description": "Major Sikh historical pilgrimage shrine built alongside a miraculous freshwater spring created by Guru Nanak Dev Ji during his southern travels.",
+    "latitude": 17.9202995,
+    "longitude": 77.5028992
+  },
+  {
+    "name": "Vijayapura",
+    "aliases": "Bijapur",
+    "district": "Vijayapura",
+    "category": "CITY",
+    "description": "Historic royal capital of the Adil Shahi Sultanate, world-famous for grand Islamic architecture, acoustic whispering domes, and imposing fort walls.",
+    "latitude": 16.8301706,
+    "longitude": 75.7100372
+  },
+  {
+    "name": "Gol Gumbaz",
+    "aliases": "Gol Gumbad, Mohammed Adil Shah Tomb",
+    "district": "Vijayapura",
+    "category": "HERITAGE",
+    "description": "The mausoleum of Mohammed Adil Shah, featuring the second-largest unsupported dome in the world and an acoustic Whispering Gallery where echoes repeat 11 times.",
+    "latitude": 16.8308468,
+    "longitude": 75.7360001
+  },
+  {
+    "name": "Ibrahim Rauza",
+    "aliases": "Ibrahim Roza, Ibrahim Adil Shah II Tomb",
+    "district": "Vijayapura",
+    "category": "HERITAGE",
+    "description": "Exquisite 17th-century palatial mausoleum complex often referred to as the Taj Mahal of the Deccan for its elegant minarets, cupolas, and stone calligraphy.",
+    "latitude": 16.8286009,
+    "longitude": 75.6963959
+  },
+  {
+    "name": "Kalaburagi",
+    "aliases": "Gulbarga, Kalaburagi City",
+    "district": "Kalaburagi",
+    "category": "CITY",
+    "description": "Prominent cultural hub of the Kalyana-Karnataka region, former capital of the Bahmani kingdom, famous for the Gulbarga Fort and Sufi shrines.",
+    "latitude": 17.3297348,
+    "longitude": 76.8342972
+  },
+  {
+    "name": "Gulbarga Fort",
+    "aliases": "Kalaburagi Fort, Jama Masjid Gulbarga Fort",
+    "district": "Kalaburagi",
+    "category": "FORT",
+    "description": "14th-century citadel expanded by Alauddin Hasan Bahman Shah, housing the unique covered Jama Masjid modeled after the Spanish Mosque of Cordoba.",
+    "latitude": 17.3444004,
+    "longitude": 76.8252029
+  },
+  {
+    "name": "Khwaja Bande Nawaz Dargah",
+    "aliases": "Dargah Hazrat Khwaja Bande Nawaz Gesudaraz, Gulbarga Dargah",
+    "district": "Kalaburagi",
+    "category": "RELIGIOUS",
+    "description": "Revered Sufi shrine complex dedicated to the 14th-century Chishti saint Hazrat Gesudaraz, attracting devotees of all faiths.",
+    "latitude": 17.3308,
+    "longitude": 76.8486
+  },
+  {
+    "name": "Sannati",
+    "aliases": "Sannati Buddhist Site, Kanaganahalli, Ashokan Edicts Sannati, Chandralamba Temple",
+    "district": "Kalaburagi",
+    "category": "ARCHAEOLOGICAL",
+    "description": "Major Buddhist archaeological site on the Bhima River where a monumental Maha Stupa and the only carved stone portrait of Emperor Ashoka were unearthed.",
+    "latitude": 16.8294,
+    "longitude": 76.9089
+  },
+  {
+    "name": "Hubballi",
+    "aliases": "Hubli",
+    "district": "Dharwad",
+    "category": "CITY",
+    "description": "Thriving commercial and industrial twin city to Dharwad, headquarters of South Western Railway with the world's longest railway platform at Shree Siddharoodha Swamiji station.",
+    "latitude": 15.364708,
+    "longitude": 75.1239548
+  },
+  {
+    "name": "Dharwad",
+    "aliases": "Dharwar",
+    "district": "Dharwad",
+    "category": "CITY",
+    "description": "Educational and cultural center famous for Hindustani classical music heritage, Karnatak University, and the iconic Dharwad Pedha sweet.",
+    "latitude": 15.4589205,
+    "longitude": 75.0078125
+  },
+  {
+    "name": "Unkal Lake",
+    "aliases": "Unkal Kere Hubli, Swami Vivekananda Statue Unkal Lake",
+    "district": "Dharwad",
+    "category": "LAKE",
+    "description": "Scenic 200-acre lake in Hubballi featuring a monumental statue of Swami Vivekananda in the center of the waters, lush recreational parks, and boating.",
+    "latitude": 15.3813992,
+    "longitude": 75.1147003
+  },
+  {
+    "name": "Gadag",
+    "aliases": "Gadag Betageri, Gadag City",
+    "district": "Gadag",
+    "category": "CITY",
+    "description": "Historic city celebrated for Kalyani Chalukya stone art at Trikuteshwara and Veeranarayana temples, where poet Kumara Vyasa penned the Kannada Mahabharata.",
+    "latitude": 15.4299955,
+    "longitude": 75.6300049
+  },
+  {
+    "name": "Lakkundi",
+    "aliases": "Lokkigundi, Lakkundi Temples and Stepwells, Brahma Jinalaya Lakkundi",
+    "district": "Gadag",
+    "category": "HERITAGE",
+    "description": "Ancient Chalukyan temple village housing over 50 ornate stone shrines and stepped stepwells (Kalyani) with decorative stone carvings.",
+    "latitude": 15.3855009,
+    "longitude": 75.719696
+  },
+  {
+    "name": "Koppal",
+    "aliases": "Koppala, Koppal Fort",
+    "district": "Koppal",
+    "category": "CITY",
+    "description": "Historic district headquarters known for the hilltop Koppal Fort, rock edicts of Emperor Ashoka, and indigenous handcrafted Kinhal wooden toys.",
+    "latitude": 15.3481235,
+    "longitude": 76.1554565
+  },
+  {
+    "name": "Anegundi",
+    "aliases": "Anegondi",
+    "district": "Koppal",
+    "category": "HERITAGE",
+    "description": "Ancient fortified river village older than Hampi across the Tungabhadra River, identified as the mythical monkey kingdom of Kishkindha from the Ramayana.",
+    "latitude": 15.352499,
+    "longitude": 76.4952011
+  },
+  {
+    "name": "Sanapur Lake",
+    "aliases": "Sanapur Reservoir",
+    "district": "Koppal",
+    "category": "LAKE",
+    "description": "Serene reservoir surrounded by dramatic granite boulder formations near Hampi, popular for traditional coracle boat rides and cliff walks.",
+    "latitude": 15.3725004,
+    "longitude": 76.467804
+  },
+  {
+    "name": "Ballari",
+    "aliases": "Bellary, Ballari Fort, Ballari City",
+    "district": "Ballari",
+    "category": "CITY",
+    "description": "Historic city overlooked by the monolithic Ballari Gudda rock hill crowned with the upper fort constructed by Hanumappa Nayaka and lower fort by Hyder Ali.",
+    "latitude": 15.1393932,
+    "longitude": 76.9214428
+  },
+  {
+    "name": "Daroji Sloth Bear Sanctuary",
+    "aliases": "Daroji Bear Sanctuary, Daroji Hampi",
+    "district": "Ballari",
+    "category": "WILDLIFE",
+    "description": "Unique wildlife haven established in 1994 near Hampi specifically for the conservation and protection of the Indian sloth bear in rocky scrub forests.",
+    "latitude": 15.2638893,
+    "longitude": 76.5541687
+  },
+  {
+    "name": "Sandur",
+    "aliases": "Sanduru, Kumaraswamy Temple Sandur, Sandur Valley",
+    "district": "Ballari",
+    "category": "HILL_STATION",
+    "description": "Picturesque valley surrounded by forested hills and mineral-rich ridges, home to the 8th-century Rashtrakuta Kumaraswamy and Parvati temple complex.",
+    "latitude": 15.0863991,
+    "longitude": 76.5499954
+  },
+  {
+    "name": "Davanagere",
+    "aliases": "Davangere",
+    "district": "Davanagere",
+    "category": "CITY",
+    "description": "Central commercial city celebrated throughout India for the Davanagere Benne Dosa (butter crepe), cotton textile history, and scenic lakes.",
+    "latitude": 14.4644401,
+    "longitude": 75.9218063
+  },
+  {
+    "name": "Shanthi Sagara",
+    "aliases": "Sulekere, Soolekere, Shanthi Sagara Lake",
+    "district": "Davanagere",
+    "category": "LAKE",
+    "description": "One of the largest man-made irrigation tanks in Asia, constructed in 1128 AD across the Haridra river valley, spanning over 6,500 acres of water.",
+    "latitude": 14.1524992,
+    "longitude": 75.8893967
+  },
+  {
+    "name": "Haveri",
+    "aliases": "Haveri Town, Siddheshwara Temple Haveri",
+    "district": "Haveri",
+    "category": "CITY",
+    "description": "Cultural district center known for historical 11th-century Western Chalukya architecture at Siddheshwara Temple and spicy Byadagi red chillies.",
+    "latitude": 14.7952795,
+    "longitude": 75.398613
+  },
+  {
+    "name": "Ranebennur Blackbuck Sanctuary",
+    "aliases": "Ranebennur Sanctuary, Blackbuck Sanctuary Haveri",
+    "district": "Haveri",
+    "category": "WILDLIFE",
+    "description": "Wildlife sanctuary established in 1958 protecting herds of endangered Indian blackbucks and the elusive great Indian bustard.",
+    "latitude": 14.6214,
+    "longitude": 75.6231
+  },
+  {
+    "name": "Kaginele",
+    "aliases": "Kaginele Kanakadasa Smaraka, Kaginele Mahasamadhi",
+    "district": "Haveri",
+    "category": "CULTURAL",
+    "description": "Birthplace and spiritual center of saint-philosopher Kanakadasa, featuring a memorial fort, museum, and the Keshava temple.",
+    "latitude": 14.7213898,
+    "longitude": 75.4852753
+  },
+  {
+    "name": "Raichur",
+    "aliases": "Raichur City, Raichur Fort",
+    "district": "Raichur",
+    "category": "CITY",
+    "description": "Strategic fortress city between the Krishna and Tungabhadra rivers (Raichur Doab), rich in Kakatiya, Bahmani, and Vijayanagara history.",
+    "latitude": 16.2076092,
+    "longitude": 77.3463135
+  },
+  {
+    "name": "Yadgir",
+    "aliases": "Yadgiri, Yadgir City, Hill Fort Yadgir",
+    "district": "Yadgir",
+    "category": "CITY",
+    "description": "District headquarters known for the majestic Yadav hill fort resting atop a colossal monolithic rocky hill overlooking the town.",
+    "latitude": 16.7628803,
+    "longitude": 77.1374588
+  },
+  {
+    "name": "Somanathapura",
+    "aliases": "Somanathapur, Somnathpura, Chennakeshava Temple Somanathapura, Keshava Temple Somanathapura",
+    "district": "Mysuru",
+    "category": "HERITAGE",
+    "description": "13th-century UNESCO World Heritage Hoysala temple complex on the Kaveri River, famed for its trikuta star-shaped vimanas and detailed soapstone friezes.",
+    "latitude": 12.2764,
+    "longitude": 76.882
+  },
+  {
+    "name": "Talakadu",
+    "aliases": "Talakad, Talakadu Sand Dunes, Panchalinga Temples Talakadu",
+    "district": "Mysuru",
+    "category": "HERITAGE",
+    "description": "Historic temple town on the Kaveri River enveloped by sand dunes, famous for the five Shiva temples (Panchalingas) and Chola-Hoysala heritage.",
+    "latitude": 12.1969,
+    "longitude": 77.0307
+  },
+  {
+    "name": "Nanjangud",
+    "aliases": "Nanjangudu, Sri Srikanteshwara Temple Nanjangud, Nanjundeshwara Temple",
+    "district": "Mysuru",
+    "category": "TEMPLE",
+    "description": "Ancient temple town on the banks of the Kapila (Kabini) River, revered for the monumental Sri Srikanteshwara (Nanjundeshwara) temple complex.",
+    "latitude": 12.1197,
+    "longitude": 76.6806
+  },
+  {
+    "name": "Kudalasangama",
+    "aliases": "Kudala Sangama, Kudalasangam, Basaveshwara Aikya Mantapa",
+    "district": "Bagalkot",
+    "category": "HERITAGE",
+    "description": "Sacred pilgrimage site at the confluence of the Krishna and Malaprabha rivers, housing the Aikya Mantapa of the 12th-century philosopher-statesman Jagadjyothi Basaveshwara.",
+    "latitude": 16.2125,
+    "longitude": 76.1558
+  },
+  {
+    "name": "Banavasi",
+    "aliases": "Madhukeshwara Temple Banavasi, Vanavasi",
+    "district": "Uttara Kannada",
+    "category": "HERITAGE",
+    "description": "Ancient capital of the Kadamba dynasty on the Varada River, celebrated as one of Karnataka's oldest historic settlements and home to the 9th-century Madhukeshwara Temple.",
+    "latitude": 14.5342,
+    "longitude": 75.0117
+  },
+  {
+    "name": "Sirsi",
+    "aliases": "Sirsi Town, Marikamba Temple Sirsi, Sahasralinga Sirsi",
+    "district": "Uttara Kannada",
+    "category": "CITY",
+    "description": "Serene Malnad town in the Western Ghats surrounded by dense forests, known for the historic Sri Marikamba Temple, spice plantations, and riverbed Shivalingas at Sahasralinga.",
+    "latitude": 14.6195,
+    "longitude": 74.8354
+  },
+  {
+    "name": "Unchalli Falls",
+    "aliases": "Lushington Falls, Keppa Joga",
+    "district": "Uttara Kannada",
+    "category": "WATERFALL",
+    "description": "Dramatic 116-meter cataract created by the Aghanashini River tumbling down a steep rocky gorge in dense Sahyadri rainforests.",
+    "latitude": 14.5103,
+    "longitude": 74.8078
+  },
+  {
+    "name": "Honnavar",
+    "aliases": "Honnavara, Sharavathi Eco Beach Honnavar, Honnavar Backwaters",
+    "district": "Uttara Kannada",
+    "category": "COASTAL",
+    "description": "Scenic coastal town on the Arabian Sea where the Sharavathi River meets the sea, renowned for boat cruises through mangrove forests and Blue Flag Eco Beach.",
+    "latitude": 14.2797,
+    "longitude": 74.4439
+  },
+  {
+    "name": "Basavakalyan",
+    "aliases": "Kalyana, Basavakalyana, Basavakalyan Fort, Anubhava Mantapa",
+    "district": "Bidar",
+    "category": "HERITAGE",
+    "description": "Historic capital of the Western Chalukya Empire and birthplace of the 12th-century Sharana social revolution led by Basavanna, featuring the Basavakalyan Fort and Anubhava Mantapa.",
+    "latitude": 17.8731,
+    "longitude": 76.9497
+  },
+  {
+    "name": "Mallalli Falls",
+    "aliases": "Mallalli Waterfalls, Kumaradhara Falls Somwarpet",
+    "district": "Kodagu",
+    "category": "WATERFALL",
+    "description": "Spectacular stepped cascade in northern Kodagu formed by the Kumaradhara River tumbling down the northern slopes of the Pushpagiri mountain range.",
+    "latitude": 12.6953,
+    "longitude": 75.8456
+  },
+  {
+    "name": "Chelavara Falls",
+    "aliases": "Chelavara Waterfalls, Embepare, Chomakund Chelavara",
+    "district": "Kodagu",
+    "category": "WATERFALL",
+    "description": "Natural cascade formed by a tributary of the Kaveri River rushing over a tortoise-shaped rock near Cheyandane, surrounded by coffee and cardamom plantations.",
+    "latitude": 12.2217,
+    "longitude": 75.7608
+  },
+  {
+    "name": "Ballalarayana Durga",
+    "aliases": "Ballalarayana Durga Fort, Ballalarayanadurga",
+    "district": "Chikkamagaluru",
+    "category": "FORT",
+    "description": "Isolated 12th-century hilltop fort ruins built by the Hoysala dynasty atop a high Western Ghats ridge near Kalasa, offering sweeping panoramic valley views.",
+    "latitude": 13.1364,
+    "longitude": 75.4097
+  },
+  {
+    "name": "Rani Jhari",
+    "aliases": "Rani Jhari View Point, Rani Jhari Edge",
+    "district": "Chikkamagaluru",
+    "category": "VIEWPOINT",
+    "description": "Mesmerizing cliff-edge viewpoint near Kalasa overlooking deep green Western Ghats gorges and waterfalls tumbling into the Netravati valley.",
+    "latitude": 13.1325,
+    "longitude": 75.4128
+  },
+  {
+    "name": "Padubidri Beach",
+    "aliases": "Padubidri Blue Flag Beach, Padubidri Sea Beach",
+    "district": "Udupi",
+    "category": "BEACH",
+    "description": "Internationally certified Blue Flag beach known for pristine clean sands, safe swimming zones, water sports, and well-maintained seaside promenades.",
+    "latitude": 13.1419,
+    "longitude": 74.7761
+  },
+  {
+    "name": "Barkur",
+    "aliases": "Barakanur, Barkuru, Alupa Capital Barkur",
+    "district": "Udupi",
+    "category": "HERITAGE",
+    "description": "Ancient coastal capital of the Alupa dynasty on the Seetha River, home to ruins of laterite fortresses, Jain basadis, and historic stone temples.",
+    "latitude": 13.4736,
+    "longitude": 74.7472
+  },
+  {
+    "name": "St. Aloysius Chapel",
+    "aliases": "Saint Aloysius Chapel Mangalore, Aloysius Chapel",
+    "district": "Dakshina Kannada",
+    "category": "HERITAGE",
+    "description": "1899 Catholic chapel atop Light House Hill in Mangaluru, famous for magnificent frescoes and oil canvas paintings by Italian Jesuit painter Antony Moscheni.",
+    "latitude": 12.8731,
+    "longitude": 74.8458
+  },
+  {
+    "name": "Pilikula Nisargadhama",
+    "aliases": "Pilikula Biological Park, Pilikula Science Centre",
+    "district": "Dakshina Kannada",
+    "category": "NATURE",
+    "description": "Integrated eco-education and tourism park near Mangaluru featuring a biological wildlife park, 3D planetarium, heritage village, and boating lake.",
+    "latitude": 12.9286,
+    "longitude": 74.8986
+  },
+  {
+    "name": "Channapatna",
+    "aliases": "Channapatna City, Channapattana, Channapatna Toys City",
+    "district": "Ramanagara",
+    "category": "CULTURAL",
+    "description": "Town celebrated across India for traditional lacquerware wooden toys and handicrafts crafted by local artisans using natural dyes and ivory wood.",
+    "latitude": 12.6517,
+    "longitude": 77.2089
+  },
+  {
+    "name": "Bheemeshwari",
+    "aliases": "Bheemeshwari Nature Camp, Bheemeshwari Cauvery Camp",
+    "district": "Mandya",
+    "category": "ADVENTURE",
+    "description": "Eco-tourism haven situated along the Kaveri River, surrounded by dense forests home to elephants, leopards, crocodiles, and adventure activities like zip-lining and rafting.",
+    "latitude": 12.3106,
+    "longitude": 77.2289
+  },
+  {
+    "name": "Galibore",
+    "aliases": "Galibore Nature Camp, Galibore Fishing Camp",
+    "district": "Ramanagara",
+    "category": "NATURE",
+    "description": "Secluded wilderness camp tucked deep inside deciduous forests along the Kaveri River, famous for nature trails, coracle rides, and birdwatching.",
+    "latitude": 12.2778,
+    "longitude": 77.3486
+  },
+  {
+    "name": "Nrityagram",
+    "aliases": "Nrityagram Dance Village, Hesaraghatta Nrityagram",
+    "district": "Bengaluru Urban",
+    "category": "CULTURAL",
+    "description": "India's first modern Gurukul dance community founded by Protima Gauri near Hesaraghatta, renowned for preserving classical Odissi and Bharatnatyam arts in earthen architecture.",
+    "latitude": 13.1611,
+    "longitude": 77.4475
+  },
+  {
+    "name": "Hesaraghatta Lake",
+    "aliases": "Hesaraghatta Kere, Hesaraghatta Grasslands",
+    "district": "Bengaluru Urban",
+    "category": "LAKE",
+    "description": "Expansive man-made freshwater reservoir built across the Arkavathi River in 1894, surrounded by scenic open grasslands popular among birdwatchers and cyclists.",
+    "latitude": 13.1436,
+    "longitude": 77.4764
+  },
+  {
+    "name": "Avani",
+    "aliases": "Avani Betta, Ramalingeshwara Temple Avani, Sita Mata Temple Avani",
+    "district": "Kolar",
+    "category": "HERITAGE",
+    "description": "Sacred historic village nestled below a rocky hill, famous for the 10th-century Nolamba-style Ramalingeshwara temple complex and legendary association with Maharshi Valmiki.",
+    "latitude": 13.0997,
+    "longitude": 78.3308
+  },
+  {
+    "name": "Kurudumale",
+    "aliases": "Kurudumale Ganesha Temple, Kurudumale Maha Ganapathi",
+    "district": "Kolar",
+    "category": "TEMPLE",
+    "description": "Sacred temple village home to a colossal 13.5-foot monolithic idol of Lord Ganesha sculpted during the Vijayanagara era, alongside the Chola-period Someshwara temple.",
+    "latitude": 13.1897,
+    "longitude": 78.3514
+  },
+  {
+    "name": "Magadi Bird Sanctuary",
+    "aliases": "Magadi Kere, Magadi Wetland Gadag, Bar-headed Goose Sanctuary",
+    "district": "Gadag",
+    "category": "BIRD_SANCTUARY",
+    "description": "Internationally significant wetland tank in Shirahatti taluk that hosts thousands of migratory Bar-headed Geese flying from Mongolia across the Himalayas during winter.",
+    "latitude": 15.2281,
+    "longitude": 75.5211
+  },
+  {
+    "name": "Itagi Mahadeva Temple",
+    "aliases": "Itagi Temple, Mahadeva Temple Itagi, Devalaya Chakravarti",
+    "district": "Koppal",
+    "category": "HERITAGE",
+    "description": "Masterpiece of Western Chalukya architecture completed in 1112 AD by Mahadeva Dandanayaka, praised in historical stone inscriptions as 'Devalaya Chakravarti' (Emperor among Temples).",
+    "latitude": 15.4689,
+    "longitude": 75.9903
+  },
+  {
+    "name": "Bankapura Peacock Sanctuary",
+    "aliases": "Bankapura Fort Peacock Sanctuary, Bankapur",
+    "district": "Haveri",
+    "category": "BIRD_SANCTUARY",
+    "description": "Sanctuary established inside the 9th-century ruined moat and ramparts of Bankapura Fort, protecting breeding colonies of Indian Peafowl and the ancient Nagareshwara temple.",
+    "latitude": 14.9214,
+    "longitude": 75.2636
+  },
+  {
+    "name": "Godchinamalaki Falls",
+    "aliases": "Markandeya Falls, Godchinamalaki Waterfalls",
+    "district": "Belagavi",
+    "category": "WATERFALL",
+    "description": "Picturesque two-tiered waterfall on the Markandeya River cascading through a lush green rocky valley near Gokak.",
+    "latitude": 16.1417,
+    "longitude": 74.7892
+  },
+  {
+    "name": "Hidkal Dam",
+    "aliases": "Raja Lakhamagouda Dam, Hidkal Reservoir, Ghataprabha Dam",
+    "district": "Belagavi",
+    "category": "DAM",
+    "description": "Major water reservoir across the Ghataprabha River in Hukkeri taluk, attracting migratory birds and offering scenic vistas across broad backwaters.",
+    "latitude": 16.1558,
+    "longitude": 74.6369
+  },
+  {
+    "name": "Shahapur Sleeping Buddha Hill",
+    "aliases": "Sleeping Buddha Hill Shahapur, Shahapur Hill View",
+    "district": "Yadgir",
+    "category": "NATURE",
+    "description": "Unique horizontal rock formation comprising four contiguous hills near Shahapur that resembles the silhouette of the reclining Gautama Buddha.",
+    "latitude": 16.7028,
+    "longitude": 76.8406
+  }
+]

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Button from './Button';
-import { X, Calendar, MapPin, Type, FileText, AlertCircle, Loader2 } from 'lucide-react';
+import { X, Calendar, MapPin, Type, FileText, AlertCircle, Loader2, Compass } from 'lucide-react';
+import destinationService from '../services/destinationService';
 
 const TripModal = ({ isOpen, onClose, onSubmit, initialData = null, isLoading = false, serverError = '' }) => {
   if (!isOpen) return null;
@@ -29,6 +30,71 @@ const TripModalContent = ({ onClose, onSubmit, initialData, isLoading, serverErr
   }));
 
   const [errors, setErrors] = useState({});
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [isSearchingDest, setIsSearchingDest] = useState(false);
+
+  const destinationRef = useRef(null);
+  const searchTimeoutRef = useRef(null);
+
+  // Close suggestions when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (destinationRef.current && !destinationRef.current.contains(e.target)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current);
+    };
+  }, []);
+
+  const handleDestinationChange = (e) => {
+    const value = e.target.value;
+    setFormData((prev) => ({ ...prev, destination: value }));
+    if (errors.destination) {
+      setErrors((prev) => ({ ...prev, destination: '' }));
+    }
+
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    if (value.trim().length >= 2) {
+      setIsSearchingDest(true);
+      searchTimeoutRef.current = setTimeout(async () => {
+        try {
+          const res = await destinationService.searchDestinations(value.trim(), 6);
+          setSuggestions(res.destinations || []);
+          setShowSuggestions((res.destinations || []).length > 0);
+        } catch {
+          setSuggestions([]);
+          setShowSuggestions(false);
+        } finally {
+          setIsSearchingDest(false);
+        }
+      }, 200);
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+      setIsSearchingDest(false);
+    }
+  };
+
+  const selectSuggestion = (dest) => {
+    setFormData((prev) => ({
+      ...prev,
+      destination: dest.name,
+      // Auto-suggest trip title if currently empty
+      title: prev.title.trim() ? prev.title : `Trip to ${dest.name}`,
+    }));
+    setShowSuggestions(false);
+    if (errors.destination) {
+      setErrors((prev) => ({ ...prev, destination: '' }));
+    }
+  };
 
   const validate = () => {
     const newErrors = {};
@@ -125,7 +191,7 @@ const TripModalContent = ({ onClose, onSubmit, initialData, isLoading, serverErr
               name="title"
               value={formData.title}
               onChange={handleChange}
-              placeholder="e.g. Summer Vacation in Italy"
+              placeholder="e.g. Weekend in Sakleshpur"
               disabled={isLoading}
               className={`block w-full pl-10 pr-3 py-2.5 bg-white border ${
                 errors.title ? 'border-rose-300 focus:ring-rose-500' : 'border-slate-300 focus:ring-blue-500'
@@ -135,8 +201,8 @@ const TripModalContent = ({ onClose, onSubmit, initialData, isLoading, serverErr
           {errors.title && <p className="mt-1 text-xs text-rose-600">{errors.title}</p>}
         </div>
 
-        {/* Destination */}
-        <div>
+        {/* Destination with Autocomplete */}
+        <div ref={destinationRef} className="relative">
           <label htmlFor="destination" className="block text-sm font-medium text-slate-700 mb-1">
             Destination <span className="text-rose-500">*</span>
           </label>
@@ -149,15 +215,52 @@ const TripModalContent = ({ onClose, onSubmit, initialData, isLoading, serverErr
               id="destination"
               name="destination"
               value={formData.destination}
-              onChange={handleChange}
-              placeholder="e.g. Rome, Italy"
+              onChange={handleDestinationChange}
+              onFocus={() => {
+                if (suggestions.length > 0) setShowSuggestions(true);
+              }}
+              placeholder="e.g. Sakleshpur, Bengaluru, Coorg, Mysore..."
               disabled={isLoading}
-              className={`block w-full pl-10 pr-3 py-2.5 bg-white border ${
+              autoComplete="off"
+              className={`block w-full pl-10 pr-10 py-2.5 bg-white border ${
                 errors.destination ? 'border-rose-300 focus:ring-rose-500' : 'border-slate-300 focus:ring-blue-500'
               } rounded-lg text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:ring-2`}
             />
+            {isSearchingDest && (
+              <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400">
+                <Loader2 className="h-4 w-4 animate-spin text-blue-500" />
+              </div>
+            )}
           </div>
           {errors.destination && <p className="mt-1 text-xs text-rose-600">{errors.destination}</p>}
+
+          {/* Autocomplete Dropdown */}
+          {showSuggestions && suggestions.length > 0 && (
+            <div className="absolute z-20 mt-1 w-full bg-white rounded-xl shadow-lg border border-slate-200 py-1.5 max-h-56 overflow-y-auto">
+              <div className="px-3 py-1 text-[11px] font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-1">
+                <Compass className="h-3 w-3 text-blue-500" />
+                <span>Verified Destinations</span>
+              </div>
+              {suggestions.map((dest) => (
+                <button
+                  key={dest.id || dest.name}
+                  type="button"
+                  onClick={() => selectSuggestion(dest)}
+                  className="w-full px-3.5 py-2 text-left hover:bg-blue-50/80 flex items-center justify-between transition-colors cursor-pointer"
+                >
+                  <div>
+                    <span className="text-sm font-medium text-slate-900">{dest.name}</span>
+                    <span className="text-xs text-slate-500 ml-2">({dest.district})</span>
+                  </div>
+                  {dest.category && (
+                    <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">
+                      {dest.category.replace(/_/g, ' ')}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Date Range */}

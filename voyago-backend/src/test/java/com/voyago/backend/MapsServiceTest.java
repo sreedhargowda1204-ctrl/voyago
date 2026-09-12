@@ -3,26 +3,75 @@ package com.voyago.backend;
 import com.voyago.backend.dto.maps.MapResponse;
 import com.voyago.backend.dto.maps.RouteResponse;
 import com.voyago.backend.dto.places.PlacesResponse;
-import com.voyago.backend.exception.MapsServiceException;
+import com.voyago.backend.entity.Destination;
+import com.voyago.backend.entity.DestinationCategory;
+import com.voyago.backend.repository.DestinationRepository;
+import com.voyago.backend.service.DestinationResolver;
 import com.voyago.backend.service.MapsService;
 import com.voyago.backend.service.PlacesService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class MapsServiceTest {
+
+    @Mock
+    private DestinationRepository destinationRepository;
 
     private MapsService mapsService;
 
     @BeforeEach
     public void setUp() {
+        Destination sakleshpur = Destination.builder()
+                .id(1L)
+                .name("Sakleshpur")
+                .normalizedName("sakleshpur")
+                .aliases("Sakleshpura, Sakaleshpura")
+                .district("Hassan")
+                .category(DestinationCategory.HILL_STATION)
+                .latitude(12.9698)
+                .longitude(75.7824)
+                .state("Karnataka")
+                .country("India")
+                .active(true)
+                .build();
+
+        Destination bengaluru = Destination.builder()
+                .id(2L)
+                .name("Bengaluru")
+                .normalizedName("bengaluru")
+                .aliases("Bangalore")
+                .district("Bengaluru Urban")
+                .category(DestinationCategory.CITY)
+                .latitude(12.9715987)
+                .longitude(77.5945627)
+                .state("Karnataka")
+                .country("India")
+                .active(true)
+                .build();
+
+        when(destinationRepository.findAllByActiveTrue())
+                .thenReturn(List.of(sakleshpur, bengaluru));
+
+        DestinationResolver destinationResolver = new DestinationResolver(destinationRepository);
+        destinationResolver.refreshCache();
+
         PlacesService placesService = new PlacesService(
+                destinationResolver,
                 "https://geocoding-api.open-meteo.com/v1/search",
                 "https://en.wikipedia.org/w/api.php"
         );
         mapsService = new MapsService(
                 placesService,
+                destinationResolver,
                 "https://geocoding-api.open-meteo.com/v1/search",
                 "https://router.project-osrm.org/route/v1/driving"
         );
@@ -93,14 +142,24 @@ public class MapsServiceTest {
     }
 
     @Test
+    public void testDestinationCoordinates_Sakleshpura_Catalog() {
+        MapResponse response = mapsService.getDestinationCoordinates("sakleshpura");
+        assertNotNull(response);
+        assertNotNull(response.getLocation());
+        assertEquals("Sakleshpur", response.getLocation().getName());
+        assertEquals(12.9698, response.getLocation().getLatitude());
+        assertEquals(75.7824, response.getLocation().getLongitude());
+    }
+
+    @Test
     public void testDestinationCoordinates_Bengaluru() {
         MapResponse response = mapsService.getDestinationCoordinates("Bengaluru");
         assertNotNull(response);
         assertNotNull(response.getLocation());
         assertEquals("Bengaluru", response.getLocation().getName());
         assertEquals("India", response.getLocation().getCountry());
-        assertNotNull(response.getLocation().getLatitude());
-        assertNotNull(response.getLocation().getLongitude());
+        assertEquals(12.9715987, response.getLocation().getLatitude());
+        assertEquals(77.5945627, response.getLocation().getLongitude());
     }
 
     @Test
