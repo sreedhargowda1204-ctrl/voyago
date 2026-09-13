@@ -1,0 +1,144 @@
+%% Voyago System Architecture Diagram
+%% Figure 3.1: Voyago System Architecture
+
+flowchart TB
+    subgraph ClientTier["1. USER & CLIENT LAYER (Web Browser)"]
+        UserBrowser["User Web Browser (Desktop / Mobile)"]
+    end
+
+    subgraph PresentationTier["2. PRESENTATION LAYER (Railway Frontend Service)"]
+        direction TB
+        subgraph ReactApp["React 19 + Vite SPA (Tailwind CSS & React Router)"]
+            direction LR
+            AuthUI["Authentication UI<br/>(Login / Register)"]
+            TripUI["Trip Management UI<br/>(Dashboard / Modals)"]
+            ItinUI["Itinerary UI<br/>(Daily Timeline)"]
+            WeatherUI["Weather & Places UI<br/>(7-Day / Cards)"]
+            MapUI["Maps & Routing UI<br/>(Leaflet Viewport)"]
+            BudgetUI["Budget & Expense UI<br/>(Analytics Charts)"]
+            PackUI["Packing Checklist UI<br/>(Progress Tracker)"]
+            NotifUI["Notification Center<br/>(Alerts & Badges)"]
+            ShareUI["Public Share UI<br/>(Read-Only View)"]
+            PrintUI["Print-Friendly View<br/>(Browser PDF)"]
+        end
+        AxiosClient["Axios HTTP Client<br/>(JWT Request Interceptor & Error Handler)"]
+        ReactApp --> AxiosClient
+    end
+
+    subgraph ApplicationTier["3. APPLICATION & BUSINESS LOGIC LAYER (Railway Backend Service)"]
+        direction TB
+        subgraph SecurityBoundary["Spring Security & Access Control"]
+            JwtFilter["JwtAuthFilter<br/>(Bearer Token Extractor)"]
+            SecConfig["SecurityConfig & CORS<br/>(Stateless Session / Frame Options)"]
+            UserDetailSvc["CustomUserDetailsService<br/>(Principal Resolution)"]
+            JwtSvc["JwtService<br/>(HMAC-SHA256 Sign / Verify)"]
+        end
+
+        subgraph ControllerLayer["REST Controllers"]
+            AuthCtrl["AuthController<br/>(/api/auth/**)"]
+            TripCtrl["TripController<br/>(/api/trips/**)"]
+            ItinCtrl["ItineraryItemController<br/>(/api/trips/{id}/itinerary/**)"]
+            BudgetCtrl["TripBudgetController<br/>(/api/trips/{id}/budget/**)"]
+            ExpCtrl["ExpenseController<br/>(/api/trips/{id}/expenses/**)"]
+            PackCtrl["PackingItemController<br/>(/api/trips/{id}/packing-items/**)"]
+            NotifCtrl["NotificationController<br/>(/api/notifications/**)"]
+            ShareCtrl["TripShareController<br/>(/api/trips/{id}/share)"]
+            PublicCtrl["PublicTripController<br/>(/api/shared/trips/**)"]
+            DestCtrl["DestinationController<br/>(/api/destinations/**)"]
+            WeatherCtrl["WeatherController<br/>(/api/weather/**)"]
+            PlacesCtrl["PlacesController<br/>(/api/places/**)"]
+            MapsCtrl["MapsController<br/>(/api/maps/**)"]
+        end
+
+        subgraph ServiceLayer["Service Layer (Business Logic)"]
+            AuthService["AuthService (BCrypt Hashing)"]
+            TripService["TripService (Ownership Scoping)"]
+            ItinService["ItineraryItemService (Chronological Sort)"]
+            BudgetService["TripBudgetService (Financial Calculations)"]
+            ExpService["ExpenseService (BigDecimal Aggregation)"]
+            PackService["PackingItemService (Deduplication)"]
+            NotifService["NotificationService (On-Demand Evaluation)"]
+            ShareService["TripShareService (256-Bit Token & DTO Sanitization)"]
+            DestResolver["DestinationResolver & Normalizer (In-Memory Cache)"]
+            WeatherService["WeatherService (Open-Meteo Integration)"]
+            PlacesService["PlacesService (MediaWiki & Distance Validation)"]
+            MapsService["MapsService (OSRM Driving Route Engine)"]
+        end
+
+        subgraph CrossCutting["Cross-Cutting Components & Schema Management"]
+            GlobalEx["GlobalExceptionHandler (@RestControllerAdvice)"]
+            BeanVal["Jakarta Bean Validation (@Valid, @NotNull, @NotBlank, @DecimalMin)"]
+            DataSeeder["DestinationDataLoader (ApplicationRunner Seed)"]
+            SchemaMgmt["Hibernate/JPA schema management (ddl-auto=update)"]
+        end
+
+        SecurityBoundary --> ControllerLayer
+        ControllerLayer --> ServiceLayer
+    end
+
+    subgraph DataTier["4. DATA PERSISTENCE LAYER (Railway MySQL Service)"]
+        direction TB
+        subgraph JpaRepo["Spring Data JPA & Hibernate ORM"]
+            UserRepo["UserRepository"]
+            TripRepo["TripRepository"]
+            ItinRepo["ItineraryItemRepository"]
+            BudgetRepo["TripBudgetRepository"]
+            ExpRepo["ExpenseRepository"]
+            PackRepo["PackingItemRepository"]
+            NotifRepo["NotificationRepository"]
+            ShareRepo["TripShareRepository"]
+            DestRepo["DestinationRepository"]
+        end
+
+        subgraph MySQLDB["MySQL 8.0 Relational Database (9 Principal Relational Tables)"]
+            direction TB
+            UsersTbl[("users")]
+            TripsTbl[("trips")]
+            ItinTbl[("itinerary_items")]
+            BudgetTbl[("trip_budgets")]
+            ExpTbl[("expenses")]
+            PackTbl[("packing_items")]
+            NotifTbl[("notifications")]
+            ShareTbl[("trip_shares")]
+            DestTbl[("destinations")]
+        end
+
+        JpaRepo --> MySQLDB
+    end
+
+    subgraph ExternalTier["5. EXTERNAL APIS & SERVICES"]
+        direction TB
+        OpenMeteoGeo["Open-Meteo Geocoding API<br/>(Coordinate Lookup)"]
+        OpenMeteoWeather["Open-Meteo Weather API<br/>(Current & 7-Day Forecast)"]
+        WikiMediaAPI["Wikipedia MediaWiki API<br/>(Landmark Extraction)"]
+        CommonsAPI["Wikimedia Commons API<br/>(Photo Thumbnail Search)"]
+        OSRMEngine["Project-OSRM Engine<br/>(Driving Routes & Geometry)"]
+        OSMTiles["OpenStreetMap Tile Server<br/>(Map Viewport Raster Tiles)"]
+    end
+
+    %% Communications and Data Flows
+    UserBrowser -- "1. HTTPS (HTML, CSS, JS Bundles)" --> PresentationTier
+    AxiosClient -- "2. HTTPS / REST API (JWT in Authorization Header)" --> SecurityBoundary
+    ServiceLayer --> JpaRepo
+    ServiceLayer -- "Private Network JDBC (HikariCP)" --> DataTier
+
+    %% External Service Connections
+    WeatherService -- "HTTP GET (Coordinates)" --> OpenMeteoGeo
+    WeatherService -- "HTTP GET (Meteorological Forecast)" --> OpenMeteoWeather
+    PlacesService -- "HTTP GET (Landmarks & Summaries)" --> WikiMediaAPI
+    PlacesService -- "HTTP GET (Photo Fallback & GPS Filter)" --> CommonsAPI
+    MapsService -- "HTTP GET (Driving Route Geometry & Distance)" --> OSRMEngine
+    MapUI -. "Direct Map Tile Requests (Raster PNGs)" .-> OSMTiles
+
+    %% Styling
+    classDef client fill:#eef2ff,stroke:#6366f1,stroke-width:2px;
+    classDef frontend fill:#f0fdf4,stroke:#22c55e,stroke-width:2px;
+    classDef backend fill:#f8fafc,stroke:#3b82f6,stroke-width:2px;
+    classDef database fill:#fefce8,stroke:#eab308,stroke-width:2px;
+    classDef external fill:#fdf2f8,stroke:#ec4899,stroke-width:2px;
+
+    class ClientTier client;
+    class PresentationTier frontend;
+    class ApplicationTier backend;
+    class DataTier database;
+    class ExternalTier external;

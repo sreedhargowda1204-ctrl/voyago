@@ -1,0 +1,69 @@
+graph TD
+    %% Voyago Deployment Architecture Diagram
+    %% Figure 3.6: Deployment architecture illustrating the production deployment of the Voyago frontend, backend, MySQL database, and external travel service integrations.
+
+    %% Source Control / Deployment Trigger
+    subgraph GitHub_Source["Source Repository / Deployment Source"]
+        GH["fa:fa-github GitHub Repository<br/><b>sreedhargowda1204-ctrl/voyago</b><br/>(Branch: main)<br/>• /voyago-frontend<br/>• /voyago-backend"]
+    end
+
+    %% User Environment
+    subgraph User_Env["User Environment"]
+        UserBrowser["fa:fa-laptop User Web Browser<br/><b>Authenticated Traveler</b><br/>• React Frontend Client<br/>• Leaflet Map Viewer<br/>• Browser Print / Save as PDF"]
+        PublicBrowser["fa:fa-globe Guest Web Browser<br/><b>Public Viewer</b><br/>• Shared Trip View<br/>• Read-Only Access"]
+    end
+
+    %% Railway Production Environment
+    subgraph Railway_Prod["Railway Production Environment"]
+        
+        subgraph Frontend_Node["Railway — Frontend Service"]
+            FE["fa:fa-react <b>Vite-Built React Frontend</b><br/>• React 19 + Vite 8.2 Build<br/>• Hosted and served on Railway<br/>• Tailwind CSS UI System<br/>• Leaflet / React-Leaflet Maps<br/>• Public HTTPS: beautiful-perfection-production-09e2.up.railway.app<br/>• Env Config: VITE_API_BASE_URL"]
+        end
+
+        subgraph Backend_Node["Railway — Backend Service"]
+            BE["fa:fa-server <b>Spring Boot REST API</b><br/>• Java 17 Runtime (Spring Boot 3.2.4)<br/>• JWT-based authentication & authorization<br/>• Spring Data JPA / Hibernate ORM<br/>• Public HTTPS: voyago-production-a8e6.up.railway.app<br/>• Public Endpoints: /api/auth/**, /api/shared/trips/**<br/>• Protected Endpoints: /api/trips/**, /api/budgets/**, etc.<br/>• Spring RestClient for external API calls<br/>• Env Secrets: DB_URL, DB_USERNAME, DB_PASSWORD, JWT_SECRET, JWT_EXPIRATION, FRONTEND_URL, PORT"]
+        end
+
+        subgraph Database_Node["Railway — MySQL Service"]
+            DB[("fa:fa-database <b>MySQL 8.0 Database</b><br/>• Production Schema: voyago_db<br/>• MySQL service with persistent volume<br/>• 9 Physical Relational Tables<br/>• Railway private service networking")]
+        end
+
+    end
+
+    %% External Travel & Map Services
+    subgraph External_Services["External Travel & Map Services"]
+        OpenMeteo["fa:fa-cloud <b>Open-Meteo APIs</b><br/>• Geocoding Search API<br/>• Current Weather & 7-Day Forecast"]
+        WikiMedia["fa:fa-wikipedia-w <b>Wikipedia MediaWiki API</b><br/>• Landmark & Attraction Extracts"]
+        Commons["fa:fa-image <b>Wikimedia Commons API</b><br/>• Place photos, metadata & GPS relevance"]
+        OSRM["fa:fa-road <b>Project OSRM Routing Engine</b><br/>• Driving Route Distance, ETA & Geometry"]
+        OSMTiles["fa:fa-map <b>OpenStreetMap Tile Service</b><br/>• Map raster tiles"]
+    end
+
+    %% Deploy Triggers
+    GH -->|"Railway Deployment Trigger (Frontend Changes)"| FE
+    GH -->|"Railway Deployment Trigger (Backend Changes)"| BE
+
+    %% Client Interactions
+    UserBrowser -->|"1. HTTPS / Load React Web Assets"| FE
+    PublicBrowser -->|"2. HTTPS / Access Shared Trip Route"| FE
+
+    UserBrowser -->|"3. Direct Client-Side Tile Requests"| OSMTiles
+
+    FE -->|"4. REST API / HTTPS Requests (JWT-Authenticated)"| BE
+    FE -->|"5. REST API / HTTPS Requests (Public Read-Only Shared Trips)"| BE
+
+    %% Backend to Database (Railway Private Network)
+    BE <-->|"6. JPA / Hibernate MySQL Queries (Railway Private Network)"| DB
+
+    %% Backend to External APIs via RestClient
+    BE -->|"7. RestClient: Geocoding & Weather Queries"| OpenMeteo
+    OpenMeteo -->|"Current Weather, 7-Day Forecast & Coordinates"| BE
+
+    BE -->|"8. RestClient: Landmark / Place Inquiries"| WikiMedia
+    WikiMedia -->|"Place Descriptions & Extract DTOs"| BE
+
+    BE -->|"9. RestClient: Photo Search & GPS Relevance"| Commons
+    Commons -->|"Relevant Photo URLs & Metadata"| BE
+
+    BE -->|"10. RestClient: Driving Route Requests"| OSRM
+    OSRM -->|"Route Polyline Geometry, Distance & ETA"| BE

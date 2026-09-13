@@ -1,0 +1,176 @@
+%% Voyago Use Case Diagram
+%% Figure 3.2: Voyago Use Case Diagram
+
+flowchart LR
+    %% Primary Human Actors
+    subgraph HumanActors["Human Actors"]
+        direction TB
+        User["fa:fa-user User<br/>(Authenticated Traveler)"]
+        PublicViewer["fa:fa-globe Public Viewer<br/>(Unauthenticated Guest)"]
+    end
+
+    %% System Boundary
+    subgraph SystemBoundary["Voyago Travel Planning System"]
+        direction TB
+
+        subgraph AuthUC["Authentication"]
+            UC_Register(["Register Account"])
+            UC_Login(["Login"])
+            UC_Logout(["Logout"])
+        end
+
+        subgraph TripUC["Trip Management"]
+            UC_CreateTrip(["Create Trip"])
+            UC_ViewTrips(["View My Trips"])
+            UC_SearchTrips(["Search Trips"])
+            UC_FilterTrips(["Filter Trips"])
+            UC_SortTrips(["Sort Trips"])
+            UC_ViewTrip(["View Trip"])
+            UC_UpdateTrip(["Update Trip"])
+            UC_DeleteTrip(["Delete Trip"])
+        end
+
+        subgraph ItinUC["Itinerary"]
+            UC_AddItin(["Add Itinerary Item"])
+            UC_ViewItin(["View Itinerary"])
+            UC_UpdateItin(["Update Itinerary Item"])
+            UC_DeleteItin(["Delete Itinerary Item"])
+        end
+
+        subgraph IntelUC["Destination & Travel Intelligence"]
+            UC_ResolveDest(["Resolve Destination"])
+            UC_ViewWeather(["View Weather Forecast"])
+            UC_DiscoverPlaces(["Discover Places"])
+            UC_ViewPlaceInfo(["View Place Information"])
+            UC_ViewPlacePhotos(["View Place Photos"])
+            UC_ViewMap(["View Map"])
+            UC_CalcRoute(["Calculate Driving Route"])
+        end
+
+        subgraph BudgetUC["Budget & Expenses"]
+            UC_SetBudget(["Set Budget"])
+            UC_ViewBudget(["View Budget"])
+            UC_UpdateBudget(["Update Budget"])
+            UC_DeleteBudget(["Delete Budget"])
+            UC_AddExpense(["Add Expense"])
+            UC_ViewExpenses(["View Expenses"])
+            UC_UpdateExpense(["Update Expense"])
+            UC_DeleteExpense(["Delete Expense"])
+            UC_ViewBudgetAnalytics(["View Budget Analytics"])
+        end
+
+        subgraph PackingUC["Packing"]
+            UC_AddPacking(["Add Packing Item"])
+            UC_ViewPacking(["View Packing List"])
+            UC_UpdatePacking(["Update Packing Item"])
+            UC_TogglePacked(["Toggle Packed Status"])
+            UC_DeletePacking(["Delete Packing Item"])
+            UC_ViewPackingProgress(["View Packing Progress"])
+        end
+
+        subgraph NotifUC["Notifications"]
+            UC_ViewNotif(["View Notifications"])
+            UC_MarkRead(["Mark Notification as Read"])
+            UC_MarkAllRead(["Mark All Notifications as Read"])
+            UC_DeleteNotif(["Delete Notification"])
+            UC_EvalNotif(["Evaluate / Generate Notifications"])
+        end
+
+        subgraph ShareUC["Trip Sharing"]
+            UC_CreateShare(["Create Share Link"])
+            UC_ViewShare(["View Share Link"])
+            UC_RevokeShare(["Revoke Share Link"])
+        end
+
+        subgraph PrintUC["Print"]
+            UC_ViewPrintTrip(["View Print-Friendly Trip"])
+            UC_PrintPDF(["Print / Save as PDF"])
+        end
+
+        subgraph PublicViewUC["Public Trip Sharing (Read-Only)"]
+            UC_OpenShared(["Open Shared Trip"])
+            UC_ViewSharedTrip(["View Shared Trip Details"])
+            UC_ViewSharedItin(["View Shared Itinerary"])
+            UC_ViewSharedBudget(["View Shared Budget & Expenses"])
+            UC_ViewSharedPacking(["View Shared Packing Information"])
+        end
+
+        %% Internal UML Include Relationships
+        UC_ViewPrintTrip -. "<<include>>" .-> UC_PrintPDF
+        UC_ViewNotif -. "<<include>>" .-> UC_EvalNotif
+
+        UC_OpenShared -. "<<include>>" .-> UC_ViewSharedTrip
+        UC_ViewSharedTrip -. "<<include>>" .-> UC_ViewSharedItin
+        UC_ViewSharedTrip -. "<<include>>" .-> UC_ViewSharedBudget
+        UC_ViewSharedTrip -. "<<include>>" .-> UC_ViewSharedPacking
+    end
+
+    %% External Systems / Supporting Actors
+    subgraph ExternalSystems["External Supporting Services"]
+        direction TB
+        Ext_OpenMeteo["Open-Meteo<br/>(Geocoding & Forecast)"]
+        Ext_Wikipedia["Wikipedia MediaWiki API<br/>(Landmark Extraction)"]
+        Ext_Wikimedia["Wikimedia Commons API<br/>(Place Photos)"]
+        Ext_OSRM["Project OSRM<br/>(Driving Route Calculation)"]
+        Ext_OSM["OpenStreetMap Tile Service<br/>(Map Tiles)"]
+    end
+
+    %% User Associations
+    User --- UC_Register
+    User --- UC_Login
+    User --- UC_Logout
+    User --- UC_CreateTrip
+    User --- UC_ViewTrips
+    User --- UC_SearchTrips
+    User --- UC_FilterTrips
+    User --- UC_SortTrips
+    User --- UC_ViewTrip
+    User --- UC_UpdateTrip
+    User --- UC_DeleteTrip
+    User --- UC_AddItin
+    User --- UC_UpdateItin
+    User --- UC_DeleteItin
+    User --- UC_SetBudget
+    User --- UC_UpdateBudget
+    User --- UC_DeleteBudget
+    User --- UC_AddExpense
+    User --- UC_ViewExpenses
+    User --- UC_UpdateExpense
+    User --- UC_DeleteExpense
+    User --- UC_ViewBudgetAnalytics
+    User --- UC_AddPacking
+    User --- UC_UpdatePacking
+    User --- UC_TogglePacked
+    User --- UC_DeletePacking
+    User --- UC_ViewPackingProgress
+    User --- UC_ViewNotif
+    User --- UC_MarkRead
+    User --- UC_MarkAllRead
+    User --- UC_DeleteNotif
+    User --- UC_CreateShare
+    User --- UC_ViewShare
+    User --- UC_RevokeShare
+    User --- UC_ViewPrintTrip
+
+    %% Public Viewer Associations (Strictly Read-Only)
+    PublicViewer --- UC_OpenShared
+
+    %% External Service Associations
+    UC_ResolveDest --- Ext_OpenMeteo
+    UC_ViewWeather --- Ext_OpenMeteo
+    UC_DiscoverPlaces --- Ext_Wikipedia
+    UC_ViewPlaceInfo --- Ext_Wikipedia
+    UC_ViewPlacePhotos --- Ext_Wikimedia
+    UC_CalcRoute --- Ext_OSRM
+    UC_ViewMap --- Ext_OSM
+
+    %% Styling
+    classDef actorStyle fill:#eef2ff,stroke:#4f46e5,stroke-width:2px,font-weight:bold;
+    classDef externalStyle fill:#fdf2f8,stroke:#db2777,stroke-width:2px,font-weight:bold;
+    classDef ucStyle fill:#ffffff,stroke:#0284c7,stroke-width:1.5px;
+    classDef readOnlyUC fill:#f0fdf4,stroke:#16a34a,stroke-width:1.5px;
+
+    class User,PublicViewer actorStyle;
+    class Ext_OpenMeteo,Ext_Wikipedia,Ext_Wikimedia,Ext_OSRM,Ext_OSM externalStyle;
+    class UC_Register,UC_Login,UC_Logout,UC_CreateTrip,UC_ViewTrips,UC_SearchTrips,UC_FilterTrips,UC_SortTrips,UC_ViewTrip,UC_UpdateTrip,UC_DeleteTrip,UC_AddItin,UC_ViewItin,UC_UpdateItin,UC_DeleteItin,UC_ResolveDest,UC_ViewWeather,UC_DiscoverPlaces,UC_ViewPlaceInfo,UC_ViewPlacePhotos,UC_ViewMap,UC_CalcRoute,UC_SetBudget,UC_ViewBudget,UC_UpdateBudget,UC_DeleteBudget,UC_AddExpense,UC_ViewExpenses,UC_UpdateExpense,UC_DeleteExpense,UC_ViewBudgetAnalytics,UC_AddPacking,UC_ViewPacking,UC_UpdatePacking,UC_TogglePacked,UC_DeletePacking,UC_ViewPackingProgress,UC_ViewNotif,UC_MarkRead,UC_MarkAllRead,UC_DeleteNotif,UC_EvalNotif,UC_CreateShare,UC_ViewShare,UC_RevokeShare,UC_ViewPrintTrip,UC_PrintPDF ucStyle;
+    class UC_OpenShared,UC_ViewSharedTrip,UC_ViewSharedItin,UC_ViewSharedBudget,UC_ViewSharedPacking readOnlyUC;

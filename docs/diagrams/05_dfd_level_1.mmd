@@ -1,0 +1,82 @@
+graph TD
+    %% Voyago Data Flow Diagram - Level 1 (Functional Decomposition)
+    %% Figure 3.5: Voyago Data Flow Diagram - Level 1
+
+    %% External Entities
+    subgraph External_Entities["External Entities"]
+        E1["fa:fa-user E1: Authenticated User<br/>(Protected Traveler)"]
+        E2["fa:fa-globe E2: Public Viewer<br/>(Unauthenticated Guest)"]
+        E3["fa:fa-cloud E3: External Travel & Map Services<br/>• Open-Meteo (Weather & Geocoding)<br/>• Wikipedia MediaWiki API (Landmarks)<br/>• Wikimedia Commons (Place Photos)<br/>• Project OSRM (Route Engine)<br/>• OpenStreetMap Tile Service (Map Tiles)"]
+    end
+
+    %% Functional Processes (1.0 to 7.0)
+    subgraph Processes["Major Functional Processes (Decomposition of Process 0)"]
+        P1(("1.0<br/>Authentication &<br/>Account Management"))
+        P2(("2.0<br/>Trip & Itinerary<br/>Management"))
+        P3(("3.0<br/>Budget & Expense<br/>Management"))
+        P4(("4.0<br/>Packing &<br/>Notification<br/>Management"))
+        P5(("5.0<br/>Destination &<br/>Travel Intelligence"))
+        P6(("6.0<br/>Trip Sharing"))
+        P7(("7.0<br/>Print-Friendly<br/>Trip Output"))
+    end
+
+    %% Logical Data Stores (D1 to D6)
+    subgraph Data_Stores["Logical Data Stores"]
+        D1[("D1 | User & Authentication Data")]
+        D2[("D2 | Trip & Itinerary Data")]
+        D3[("D3 | Budget & Expense Data")]
+        D4[("D4 | Packing & Notification Data")]
+        D5[("D5 | Trip Sharing Data")]
+        D6[("D6 | Destination Catalog")]
+    end
+
+    %% User Flows (E1 <-> Processes)
+    E1 -->|"Registration Data, Login Credentials, Account Actions"| P1
+    P1 -->|"Authentication Result, Account / Profile Info"| E1
+
+    E1 -->|"Trip Creation, Updates, Deletions, Search & Filter Criteria, Itinerary Entries"| P2
+    P2 -->|"Trip Summaries, Detailed Itineraries, Search Results, Operation Status"| E1
+
+    E1 -->|"Budget Ceilings, Expense Entries, Modifications, Deletions"| P3
+    P3 -->|"Budget Summaries, Expense Lists, Expenditure Analytics, Over-Budget Status"| E1
+
+    E1 -->|"Packing Item Updates, Packed Status Toggles, Notification Dismiss Actions"| P4
+    P4 -->|"Packing Checklist, Packing Progress (%), In-App Alerts"| E1
+
+    E1 -->|"Destination Queries, Place Searches, Weather Requests, Driving Route Requests"| P5
+    P5 -->|"Resolved Destination, Current Weather & 7-Day Forecast, Place Details, Photos, Route Geometry & ETA"| E1
+
+    E1 -->|"Share Link Creation, View Share Token, Revoke Sharing"| P6
+    P6 -->|"Share Link Status, Active Secure Share Tokens"| E1
+
+    E1 -->|"Print / Save as PDF Request"| P7
+    P7 -->|"Print-Friendly Trip Document Data"| E1
+
+    %% Public Viewer Flows (E2 <-> P6 strictly read-only)
+    E2 -->|"Shared Trip Access Request (Secure Share Token)"| P6
+    P6 -->|"Read-Only Shared Trip Details, Itinerary, Budget & Expenses, Packing List"| E2
+
+    %% External Services Flows (P5 <-> E3)
+    P5 -->|"Geocoding, Weather, Landmark Queries, Photo Requests, Route Coordinates, Tile Requests"| E3
+    E3 -->|"Geocoded Coordinates, Current Weather & 7-Day Forecast, Place Summaries, Image URLs, Route Distance/Duration/Geometry, Map Tiles"| P5
+
+    %% Cross-Process Flows
+    P2 -->|"Trip Context / Budget Target"| P3
+    P2 -->|"Trip Context / Schedule Information"| P4
+    P2 -->|"Destination Search Context"| P5
+    P2 -->|"Trip Reference / Sharing Context"| P6
+    P2 -->|"Trip Assembly Context"| P7
+    P3 -->|"Budget Status / Over-Budget Context"| P4
+
+    %% Process to Data Store Flows
+    P1 <-->|"User Credentials, Account Records"| D1
+    P2 <-->|"Trip Entities, Itinerary Records"| D2
+    P3 <-->|"Budget Ceilings, Expense Transactions"| D3
+    P4 <-->|"Packing Items, Notification Records"| D4
+    P5 <-->|"Destination Catalog Lookup Data"| D6
+    P6 <-->|"Secure Share Tokens, Authorization State"| D5
+
+    %% P7 Reads Data Stores
+    D2 -.->|"Read Trip & Itinerary Records"| P7
+    D3 -.->|"Read Budget & Expense Summaries"| P7
+    D4 -.->|"Read Packing Checklist State"| P7

@@ -1,0 +1,46 @@
+graph TD
+    %% Voyago Data Flow Diagram - Level 0 (Context / High-Level System Process)
+    %% Figure 3.4: Voyago Data Flow Diagram - Level 0
+
+    %% External Entities
+    subgraph Entities_Left["External Actors"]
+        User["fa:fa-user Authenticated User<br/>(Protected Traveler)"]
+        PublicViewer["fa:fa-globe Public Viewer<br/>(Unauthenticated Guest)"]
+    end
+
+    subgraph Entities_Right["External Supporting Systems"]
+        ExtServices["fa:fa-cloud External Travel & Map Services<br/>• Open-Meteo (Weather & Geocoding)<br/>• Wikipedia MediaWiki API (Landmarks)<br/>• Wikimedia Commons (Place Photos)<br/>• Project OSRM (Route Engine)<br/>• OpenStreetMap Tile Service (Map Tiles)"]
+    end
+
+    %% Central Process 0
+    Process0(("fa:fa-cogs 0.<br/>Voyago Travel<br/>Planning System"))
+
+    %% Logical Data Stores
+    subgraph DataStores["Logical Data Stores"]
+        D1[("D1 | User & Authentication Data")]
+        D2[("D2 | Trip & Itinerary Data")]
+        D3[("D3 | Budget & Expense Data")]
+        D4[("D4 | Packing & Notification Data")]
+        D5[("D5 | Trip Sharing Data")]
+        D6[("D6 | Destination Catalog")]
+    end
+
+    %% Flows: Authenticated User <-> Process 0
+    User -->|"1. Registration/Login Credentials, Trip & Itinerary Updates, Budget/Expense Updates, Packing Updates, Notification Actions, Travel Queries, Share-Link Actions, Print Requests"| Process0
+    Process0 -->|"2. Authentication Result, Trip & Itinerary Views, Budget Summaries, Packing Progress, Notifications, Weather/Place/Route Data, Share Information, Print-Friendly Trip Data"| User
+
+    %% Flows: Public Viewer <-> Process 0
+    PublicViewer -->|"3. Shared Trip Access Request (Share Token)"| Process0
+    Process0 -->|"4. Read-Only Shared Trip Details, Shared Itinerary, Shared Budget & Expenses, Shared Packing Information"| PublicViewer
+
+    %% Flows: Process 0 <-> External Travel Services
+    Process0 -->|"5. Geocoding / Weather Requests, Landmark & Photo Queries, Driving Route & Map Tile Requests"| ExtServices
+    ExtServices -->|"6. Geocoded Coordinates, Current Weather / 7-Day Forecast Data, Place Information, Image Metadata / Image URLs, Driving Route Geometry, Distance & Duration, Map Tiles"| Process0
+
+    %% Flows: Process 0 <-> Logical Data Stores
+    Process0 <-->|"User Credentials, Account Data"| D1
+    Process0 <-->|"Trip & Itinerary Records"| D2
+    Process0 <-->|"Budget Ceilings, Expense Entries"| D3
+    Process0 <-->|"Packing Checklists, Notification Data"| D4
+    Process0 <-->|"Share Tokens, Status"| D5
+    Process0 <-->|"Destination Catalog Data"| D6

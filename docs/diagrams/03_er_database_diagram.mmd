@@ -1,0 +1,119 @@
+erDiagram
+    %% Voyago Relational Database Schema
+    %% Figure 3.3: Voyago ER / Database Diagram
+
+    users ||--o{ trips : "owns (1:N)"
+    users ||--o{ notifications : "receives (1:N)"
+    
+    trips ||--o{ itinerary_items : "contains (1:N)"
+    trips ||--o| trip_budgets : "has budget (1:0..1)"
+    trips ||--o{ expenses : "incurs (1:N)"
+    trips ||--o{ packing_items : "includes (1:N)"
+    trips |o--o{ notifications : "references [nullable] (1:0..N)"
+    trips ||--o{ trip_shares : "shared via (1:N)"
+
+    users {
+        BIGINT id PK "IDENTITY, NN"
+        VARCHAR_255 name "NN"
+        VARCHAR_255 email UK "NN, UNIQUE"
+        VARCHAR_255 mobile "NULLABLE"
+        VARCHAR_255 password "NN (Hash)"
+        VARCHAR_255 role "NN (USER|PLANNER|ADMIN)"
+        BOOLEAN verified "NN, DEFAULT false"
+        DATETIME created_at "NN"
+    }
+
+    trips {
+        BIGINT id PK "IDENTITY, NN"
+        BIGINT user_id FK "NN -> users.id"
+        VARCHAR_255 title "NN"
+        VARCHAR_255 destination "NN (Text String, Not FK)"
+        DATE start_date "NN"
+        DATE end_date "NN"
+        TEXT notes "NULLABLE"
+        DATETIME created_at "NN"
+        DATETIME updated_at "NN"
+    }
+
+    itinerary_items {
+        BIGINT id PK "IDENTITY, NN"
+        BIGINT trip_id FK "NN -> trips.id"
+        VARCHAR_255 title "NN"
+        TEXT description "NULLABLE"
+        DATE date "NN"
+        TIME time "NULLABLE"
+        VARCHAR_255 location "NULLABLE"
+        DATETIME created_at "NN"
+        DATETIME updated_at "NN"
+    }
+
+    trip_budgets {
+        BIGINT id PK "IDENTITY, NN"
+        BIGINT trip_id FK_UK "NN, UNIQUE -> trips.id"
+        DECIMAL_15_2 total_budget "NN"
+        VARCHAR_3 currency "NN"
+        DATETIME created_at "NN"
+        DATETIME updated_at "NN"
+    }
+
+    expenses {
+        BIGINT id PK "IDENTITY, NN"
+        BIGINT trip_id FK "NN -> trips.id"
+        VARCHAR_50 category "NN"
+        DECIMAL_15_2 amount "NN"
+        TEXT description "NULLABLE"
+        DATE expense_date "NN"
+        VARCHAR_50 payment_method "NULLABLE"
+        DATETIME created_at "NN"
+        DATETIME updated_at "NN"
+    }
+
+    packing_items {
+        BIGINT id PK "IDENTITY, NN"
+        BIGINT trip_id FK "NN -> trips.id"
+        VARCHAR_100 item_name "NN"
+        VARCHAR_50 category "NN"
+        INT quantity "NN, DEFAULT 1"
+        BOOLEAN packed "NN, DEFAULT false"
+        TEXT notes "NULLABLE"
+        DATETIME created_at "NN"
+        DATETIME updated_at "NN"
+    }
+
+    notifications {
+        BIGINT id PK "IDENTITY, NN"
+        BIGINT user_id FK "NN -> users.id"
+        BIGINT trip_id FK "NULLABLE -> trips.id"
+        VARCHAR_50 type "NN (NotificationType)"
+        VARCHAR_255 title "NN"
+        TEXT message "NN"
+        BOOLEAN is_read "NN, DEFAULT false"
+        DATETIME created_at "NN"
+    }
+
+    trip_shares {
+        BIGINT id PK "IDENTITY, NN"
+        BIGINT trip_id FK "NN -> trips.id"
+        VARCHAR_64 share_token UK "NN, UNIQUE"
+        BOOLEAN active "NN, DEFAULT true"
+        DATETIME created_at "NN"
+        DATETIME updated_at "NN"
+    }
+
+    destinations {
+        BIGINT id PK "IDENTITY, NN"
+        VARCHAR_150 name "NN"
+        VARCHAR_150 normalized_name "NN, INDEXED"
+        TEXT aliases "NULLABLE"
+        TEXT normalized_aliases "NULLABLE"
+        VARCHAR_100 district "NN, INDEXED"
+        VARCHAR_50 category "NN, INDEXED"
+        TEXT description "NULLABLE"
+        DOUBLE latitude "NN"
+        DOUBLE longitude "NN"
+        VARCHAR_50 state "NN, DEFAULT Karnataka"
+        VARCHAR_50 country "NN, DEFAULT India"
+        BOOLEAN active "NN, INDEXED, DEFAULT true"
+        DATETIME created_at "NN"
+        DATETIME updated_at "NN"
+    }
